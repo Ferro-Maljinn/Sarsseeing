@@ -13,10 +13,10 @@ let startBtn = document.querySelector("#start-btn");
 let restartBtn = document.querySelector("#restart-btn");
 
 //character variables
-let sarsHeight = 150;
-let sarsWidth = 150;
+let sarsHeight = 90;
+let sarsWidth = 66;
 let sarsX = 20;
-let sarsY = 700 - sarsHeight - 20;
+let sarsY = 500 - sarsHeight - 20;
 
 //all object variables
 let covX = 1000;
@@ -34,17 +34,17 @@ let virusArray = [
   { x: covX + 200, y: covY + 1000 },
   { x: covX + 200, y: covY + 100 },
   { x: covX + 200, y: covY + 100 },
-  { x: covX + 200, y: covY + 100 },
+  { x: covX + 500, y: covY + 400 },
   { x: covX + 200, y: covY + 100 },
   { x: covX + 200, y: covY + 100 },
 ];
 
 //Load all images
 function preload() {
-  bg = loadImage("./assets/stars-moving");
-  sars = loadImage("/Assets/Character.png");
-  virusBright = loadImage("/Assets/State=bright.png");
-  virusDark = loadImage("/Assets/State=dark.png");
+  bg = loadImage("assets/starsSecondScreen.gif");
+  sars = loadImage("assets/character.png");
+  virusBright = loadImage("assets/collision/stateBright.png");
+  virusDark = loadImage("assets/collision/stateDark.png");
 }
 
 function setup() {
@@ -140,6 +140,6 @@ window.addEventListener("load", () => {
 
   //to simulate that the game is over
   restartBtn.addEventListener("click", () => {
-    gameIsOver = true;
+    gameIsOver = false;
   });
 });
