@@ -1,7 +1,9 @@
 console.log("Am I working?");
 
 let gameIsOver = false;
+let gameIsWon = false;
 let score = 0;
+let vaxScore = 0;
 let interval = 0;
 
 //Lounch screen; Canvas screen; GameOver screen
@@ -26,13 +28,14 @@ let covY = 100;
 let covLength = 100;
 let covHeight = 100;
 //Vaxxine
-/* let vaxX = 2000;
+let vaxX = 2000;
 let vaxY = 500;
 let vaxLength = 100;
-let vaxHeight = 100; */
+let vaxHeight = 100;
 
 //Array of virus Objects
 let virusArray = [{ x: covX, y: covY, i: 0 }];
+let vaxArray = [{ x: vaxX, y: vaxY }];
 
 class virus {
   constructor(x, y, i) {
@@ -44,6 +47,13 @@ class virus {
   }
 }
 
+class vaxxine {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
 //Load all images
 function preload() {
   bg = loadImage("assets/starsSecondScreen.gif");
@@ -52,7 +62,7 @@ function preload() {
   virusBright = loadImage("assets/collision/stateBright.png");
   virusDark = loadImage("assets/collision/stateDark.png");
 
-  vaxxine = loadImage("assets/collision/Vax.png");
+  vaxxinePic = loadImage("assets/collision/Vax.png");
 
   maskClean = loadImage("assets/collision/maskClean.png");
   maskDirty = loadImage("assets/collision/maskDirty.png");
@@ -65,76 +75,118 @@ function setup() {
 }
 
 function draw() {
-  background(bg);
-  interval += 1;
-  // delay (in the number of drawings) between changing virus' frames
-  frq = 20;
+  if (gameIsWon) {
+    //background(bg);
+  } else {
+    background(bg);
+    interval += 1;
+    // delay (in the number of drawings) between changing virus' frames
+    frq = 20;
 
-  //character of Sars
-  image(sars, sarsX, sarsY, sarsWidth, sarsHeight);
-  //random virus spawning
-  if (interval % 100 == 0) {
-    virusArray.push(new virus(width, random(20, windowHeight), interval));
-  }
-
-  //for loop for the looping of the objectArray
-  for (let i = 0; i < virusArray.length; i++) {
-    if (int(int((interval + virusArray[i].i) / frq)) % 2 == 0) {
-      image(
-        virusBright,
-        virusArray[i].x,
-        virusArray[i].y,
-        covLength,
-        covHeight
-      );
-    } else {
-      image(virusDark, virusArray[i].x, virusArray[i].y, covLength, covHeight);
+    //character of Sars
+    image(sars, sarsX, sarsY, sarsWidth, sarsHeight);
+    //random virus spawning
+    if (interval % 100 == 0) {
+      virusArray.push(new virus(width, random(20, windowHeight), interval));
     }
-  }
-
-  for (let i = 0; i < virusArray.length; i++) {
-    virusArray[i].x -= 4;
-
-    //collision with virus
-    if (
-      sarsX < virusArray[i].x + covLength - 50 && //left
-      sarsX + sarsWidth > virusArray[i].x + 50 && //Right
-      sarsY < virusArray[i].y - 50 + covLength && //Top
-      sarsHeight + sarsY > virusArray[i].y + 50 //Bottom
-    ) {
-      gameIsOver = true;
+    //if (vaxScore == 30) {
+    //  gameIsWon = true;
+    //}
+    //random vaxxine spawning
+    if (interval % 1000 == 0) {
+      vaxArray.push(new vaxxine(width, random(40, windowHeight)));
     }
-    /*    if (virusArray[i].x < -500) {
-      virusArray[i].x = 2000;
-    } */
-    if (virusArray[i].x < 0) {
-      virusArray.splice(i, 1);
-      score = score + 1;
-      if (gameIsOver == true) {
-        score = 0;
+
+    //for loop for the looping of the virusArray
+    for (let i = 0; i < virusArray.length; i++) {
+      if (int(int((interval + virusArray[i].i) / frq)) % 2 == 0) {
+        image(
+          virusBright,
+          virusArray[i].x,
+          virusArray[i].y,
+          covLength,
+          covHeight
+        );
+      } else {
+        image(
+          virusDark,
+          virusArray[i].x,
+          virusArray[i].y,
+          covLength,
+          covHeight
+        );
       }
     }
-    console.log(score);
-  }
 
-  // function to move my char left, right, up and down
-  if (keyIsPressed && key === "a" && sarsX > 0) {
-    sarsX -= 10;
-  } else if (keyIsPressed && key === "d" && sarsX + sarsWidth < width) {
-    sarsX += 3;
-  } else if (keyIsPressed && key === "w" && sarsY > 0) {
-    sarsY -= 5;
-  } else if (keyIsPressed && key === "s" && sarsY + sarsHeight < height) {
-    sarsY += 5;
+    for (let i = 0; i < vaxArray.length; i++) {
+      image(vaxxinePic, vaxArray[i].x, vaxArray[i].y, vaxLength, vaxHeight);
+    }
+
+    for (let i = 0; i < virusArray.length; i++) {
+      virusArray[i].x -= 4;
+
+      //collision with virus
+      if (
+        sarsX < virusArray[i].x + covLength - 50 && //left
+        sarsX + sarsWidth > virusArray[i].x + 50 && //Right
+        sarsY < virusArray[i].y - 50 + covLength && //Top
+        sarsHeight + sarsY > virusArray[i].y + 50 //Bottom
+      ) {
+        gameIsOver = true;
+      }
+      if (virusArray[i].x < 0) {
+        virusArray.splice(i, 1);
+        score = score + 1;
+        if (gameIsOver == true) {
+          score = 0;
+        }
+      }
+      /*   console.log(score); */
+    }
+
+    for (let i = 0; i < vaxArray.length; i++) {
+      vaxArray[i].x -= 6;
+      //collision with vaxxine
+      if (
+        sarsX < vaxArray[i].x + vaxLength - 20 && //left
+        sarsX + sarsWidth > vaxArray[i].x + 20 && //Right
+        sarsY < vaxArray[i].y - 20 + vaxLength && //Top
+        sarsHeight + sarsY > vaxArray[i].y + 20 //Bottom
+      ) {
+        //Manhatten distance is smaller than 50,=> splice object,=> increment vaxScore by one, => reset score
+        //if (abs(vaxArray[i].x - sarsX) < 50 && abs(vaxArray[i].y - sarsY) < 50) {
+        vaxArray.splice(i, 1);
+        vaxScore = vaxScore + 1;
+        if (vaxScore == 10) {
+          //vaxScore = 0;
+          gameIsWon = true;
+        }
+      }
+      /*   console.log(vaxScore); */
+    }
+
+    // function to move my char left, right, up and down
+    if (keyIsPressed && keyIsDown(LEFT_ARROW) && sarsX > 0) {
+      sarsX -= 10;
+    }
+    if (keyIsPressed && keyIsDown(RIGHT_ARROW) && sarsX + sarsWidth < width) {
+      sarsX += 3;
+    }
+    if (keyIsPressed && keyIsDown(UP_ARROW) && sarsY > 0) {
+      sarsY -= 5;
+    }
+    if (keyIsPressed && keyIsDown(DOWN_ARROW) && sarsY + sarsHeight < height) {
+      sarsY += 5;
+    }
+    if (gameIsOver) {
+      gameOver();
+    }
+    // status bar
+    fill(255, 204, 0);
+    textSize(64);
+    text("Score:", 200, 100);
+    text(score, 350, 100);
   }
-  if (gameIsOver) {
-    gameOver();
-  }
-  // status bar
-  fill(255, 204, 0);
-  textSize(64);
-  text("Score:", 200, 100);
-  text(score, 350, 100);
 }
 
 //Stop draw function to reset objects + display game-over screen
