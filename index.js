@@ -11,10 +11,11 @@ let mySound;
 let firstScreen = document.querySelector("#first-screen");
 let secondScreen = document.querySelector("#second-screen");
 let thirdScreen = document.querySelector("#third-screen");
-
+let fourthScreen = document.querySelector("#fourth-screen");
 
 //buttons
 let startBtn = document.querySelector("#start-btn");
+let tryAgainBtn = document.querySelector("#tryAgain-btn");
 let restartBtn = document.querySelector("#restart-btn");
 
 //character variables
@@ -71,8 +72,6 @@ function preload() {
   maskClean = loadImage("assets/collision/maskClean.png");
   maskDirty = loadImage("assets/collision/maskDirty.png");
 
-  // score_pic = loadImage("assets/collision/Vax.png");
-
   //soundFormats("mp3", "ogg");
   // mySound = loadSound("assets/doorbell");
 }
@@ -111,7 +110,7 @@ function draw() {
       vaxArray.push(new vaxxine(width, random(40, windowHeight)));
     }
 
-    //for loop for the looping of the virusArray
+    //for loop for the looping of the virusArray & animation frequency
     for (let i = 0; i < virusArray.length; i++) {
       if (int(int((interval + virusArray[i].i) / frq)) % 2 == 0) {
         image(
@@ -172,7 +171,6 @@ function draw() {
         vaxArray.splice(i, 1);
         vaxScore = vaxScore + 1;
         if (vaxScore == 10) {
-          //vaxScore = 0;
           gameIsWon = true;
           //mySound.play();
         }
@@ -203,8 +201,8 @@ function draw() {
     fill(255, 204, 0);
     textStyle(BOLD);
     textSize(64);
-    let s = "" + vaxScore.toString() + "/10";
-    text(s, 900, 100);
+    let vaxScoreAndvaxTotal = "" + vaxScore.toString() + "/10";
+    text(vaxScoreAndvaxTotal, 900, 100);
     text("Score: " + score.toString(), 200, 100);
     //text(score, 350, 100);
     //text(score, 350, 100);
@@ -217,16 +215,32 @@ function gameOver() {
   firstScreen.style.display = "none";
   secondScreen.style.display = "none";
   thirdScreen.style.display = "flex";
+  fourthScreen.style.display = "none";
   sarsX = 20;
   sarsY = 500 - sarsHeight - 20;
   score = 0; //left
+  vaxScore = 0;
+  virusArray = [{ x: covX, y: covY, i: 0 }];
   noLoop();
 }
+/* //Stop draw function to reset objects + display win screen
+function gameWin() {
+  firstScreen.style.display = "none";
+  secondScreen.style.display = "none";
+  thirdScreen.style.display = "none";
+  fourthScreen.style.display = "flex";
+  sarsX = 20;
+  sarsY = 500 - sarsHeight - 20;
+  score = 0;
+
+  noLoop();
+} */
 
 //Showing the first screen
 window.addEventListener("load", () => {
   secondScreen.style.display = "none";
   thirdScreen.style.display = "none";
+  fourthScreen.style.display = "none";
   noLoop();
 
   //listener on start button; link to game-canvas
@@ -234,6 +248,17 @@ window.addEventListener("load", () => {
     firstScreen.style.display = "none";
     secondScreen.style.display = "flex";
     thirdScreen.style.display = "none";
+    fourthScreen.style.display = "none";
+    loop();
+  });
+
+  //listener on tryAgain button; link to game-canvas
+  tryAgainBtn.addEventListener("click", () => {
+    firstScreen.style.display = "none";
+    secondScreen.style.display = "flex";
+    thirdScreen.style.display = "none";
+    fourthScreen.style.display = "none";
+    gameIsOver = false;
     loop();
   });
 
@@ -242,19 +267,21 @@ window.addEventListener("load", () => {
     firstScreen.style.display = "none";
     secondScreen.style.display = "flex";
     thirdScreen.style.display = "none";
+    fourthScreen.style.display = "none";
     gameIsOver = false;
-
-    //Start the game again
-    virusArray = [
-      { x: covX, y: covY },
-      { x: covX + 800, y: covY + 200 },
-      { x: covX + 1400, y: covY + 400 },
-    ];
     loop();
   });
 
-  //to simulate that the game is over
-  restartBtn.addEventListener("click", () => {
-    gameIsOver = false;
-  });
+  //Start the game again
+  virusArray = [
+    { x: covX, y: covY },
+    { x: covX + 800, y: covY + 200 },
+    { x: covX + 1400, y: covY + 400 },
+  ];
+  loop();
+});
+
+//to simulate that the game is over
+tryAgainBtn.addEventListener("click", () => {
+  gameIsOver = false;
 });

@@ -15,9 +15,12 @@
     </style>
 
     <scirpt src="./p5/addons/p5.sound.js"></scirpt>
-    //<script src="./p5/p5.js"></script>
-    //<scirpt src="./p5/addons/p5.dom.min.js"></scirpt>
-    //<script src="./sketch.js"></script>
+    //
+    <script src="./p5/p5.js"></script>
+    //
+    <scirpt src="./p5/addons/p5.dom.min.js"></scirpt>
+    //
+    <script src="./sketch.js"></script>
   </head>
 
   <body>
@@ -33,13 +36,22 @@
     </div>
 
     <!-- Canvas screen elements-->
-    <div id="second-screen">
-    </div>
+    <div id="second-screen"></div>
 
     <!-- GameOver screen elements-->
     <div id="third-screen">
       <h1>Game Over!</h1>
-      <button id="restart-btn" class="btn">Restart</button>
+      <button id="tryAgain-btn" class="btn">Try Again?</button>
+    </div>
+
+    <!-- Win screen elements-->
+    <div id="fourth-screen">
+      <h1>Congratulations!</h1>
+      <p>
+        You have managed to cover from the virus. <br />
+        Earth has become a safer place and you survived a pandemic.
+      </p>
+      <button id="restart-btn" class="btn">Restart Game</button>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js"></script>
