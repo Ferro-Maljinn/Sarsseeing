@@ -5,11 +5,13 @@ let gameIsWon = false;
 let score = 0;
 let vaxScore = 0;
 let interval = 0;
+let mySound;
 
 //Lounch screen; Canvas screen; GameOver screen
 let firstScreen = document.querySelector("#first-screen");
 let secondScreen = document.querySelector("#second-screen");
 let thirdScreen = document.querySelector("#third-screen");
+
 
 //buttons
 let startBtn = document.querySelector("#start-btn");
@@ -59,6 +61,8 @@ function preload() {
   bg = loadImage("assets/starsSecondScreen.gif");
   sars = loadImage("assets/character.png");
 
+  scorePic = loadImage("assets/collision/Vax.png");
+
   virusBright = loadImage("assets/collision/stateBright.png");
   virusDark = loadImage("assets/collision/stateDark.png");
 
@@ -66,12 +70,22 @@ function preload() {
 
   maskClean = loadImage("assets/collision/maskClean.png");
   maskDirty = loadImage("assets/collision/maskDirty.png");
+
+  // score_pic = loadImage("assets/collision/Vax.png");
+
+  //soundFormats("mp3", "ogg");
+  // mySound = loadSound("assets/doorbell");
 }
 
 function setup() {
   let canvas = createCanvas(windowWidth, windowHeight);
   canvas.parent("second-screen");
   textAlign(CENTER);
+  // Including sound
+  // let cnv = createCanvas(100, 100);
+  // cnv.mousePressed(canvasPressed);
+  //background(220);
+  //text("tap here to play", 10, 20);
 }
 
 function draw() {
@@ -86,7 +100,7 @@ function draw() {
     //character of Sars
     image(sars, sarsX, sarsY, sarsWidth, sarsHeight);
     //random virus spawning
-    if (interval % 100 == 0) {
+    if (interval % 10 == 0) {
       virusArray.push(new virus(width, random(20, windowHeight), interval));
     }
     //if (vaxScore == 30) {
@@ -160,6 +174,7 @@ function draw() {
         if (vaxScore == 10) {
           //vaxScore = 0;
           gameIsWon = true;
+          //mySound.play();
         }
       }
       /*   console.log(vaxScore); */
@@ -182,10 +197,18 @@ function draw() {
       gameOver();
     }
     // status bar
+    scorePic.resize(100, 100);
+    image(scorePic, 700, 30);
+
     fill(255, 204, 0);
+    textStyle(BOLD);
     textSize(64);
-    text("Score:", 200, 100);
-    text(score, 350, 100);
+    let s = "" + vaxScore.toString() + "/10";
+    text(s, 900, 100);
+    text("Score: " + score.toString(), 200, 100);
+    //text(score, 350, 100);
+    //text(score, 350, 100);
+    textStyle(NORMAL);
   }
 }
 
