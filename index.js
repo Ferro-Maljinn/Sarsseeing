@@ -76,6 +76,10 @@ function preload() {
   // mySound = loadSound("assets/doorbell");
 }
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
 function setup() {
   let canvas = createCanvas(windowWidth, windowHeight);
   canvas.parent("second-screen");
