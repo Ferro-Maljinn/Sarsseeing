@@ -186,7 +186,7 @@ function draw() {
           //if (abs(vaxArray[i].x - sarsX) < 50 && abs(vaxArray[i].y - sarsY) < 50) {
           vaxArray.splice(i, 1);
           vaxScore = vaxScore + 1;
-          if (vaxScore == 1) {
+          if (vaxScore == 2) {
             gameIsWon = true;
             //mySound.play();
           }
@@ -221,7 +221,7 @@ function draw() {
       fill(255, 204, 0);
       textStyle(BOLD);
       textSize(64);
-      let vaxScoreAndvaxTotal = "" + vaxScore.toString() + "/10";
+      let vaxScoreAndvaxTotal = "" + vaxScore.toString() + " / 2";
       text(vaxScoreAndvaxTotal, 900, 100);
       text("Score: " + score.toString(), 200, 100);
       //text(score, 350, 100);

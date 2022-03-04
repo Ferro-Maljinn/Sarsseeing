@@ -116,5 +116,9 @@ p {
   color: white;
   font-size: 3em;
   text-align: center;
-  margin: 10%;
+  margin: 5%;
+}
+
+.go-virus {
+  margin: 5%;
 }
