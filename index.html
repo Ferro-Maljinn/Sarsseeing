@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="a virus game" />
+    <meta name="theme-color" content="#317EFB/> { "theme_color": "#317EFB" }
+    <meta name="black>`
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Sars CoVer 4</title>
 
@@ -38,13 +41,36 @@
   <body>
     <!-- Lounch screen elements-->
     <div id="first-screen">
-      <h1>Sars Kurrier 19</h1>
-      <button id="start-btn" class="btn">Start Game</button>
-      <img
-        id="start-img"
-        src="assets/starsFirstScreen.gif"
-        alt="black background with stars"
-      />
+      <div column-items>
+        <aside>
+          <p>
+            Known for its exceptional range of attractions and vibrant <br />
+            Berlin's cultural scene may now blossom back into its old gray
+            beauty. <br />
+            Sights, bars, and clubs are open again, and you can smell the smoke
+            from raves. <br />
+            But huh... oh<br />
+            Winter 2022 still seems to be bad timing for sightseeing in <br />
+            There seems to arrive a new wave of covid that's clouding the city's
+            air... <br />
+            The rules for covering the virus have been refreshed, and the
+            vaccinations <br />
+            are now increased to 10 boosters. <br />
+            Would you still like to go sightseeing? <br />
+            Well... okay...try to avoid colliding with a virus and watch out for
+            the booster shots.
+          </p>
+        </aside>
+      </div>
+      <div class="column-items">
+        <h1>Sarsseeing 22</h1>
+        <button id="start-btn" class="btn">Start Game</button>
+        <!--         <img
+          id="start-img"
+          src="assets/starsFirstScreen.gif"
+          alt="black background with stars"
+        /> -->
+      </div>
     </div>
 
     <!-- Canvas screen elements-->
@@ -52,22 +78,26 @@
 
     <!-- GameOver screen elements-->
     <div id="third-screen">
+      <aside>
       <h1>Game Over!</h1>
       <p>
-        Oh no, you lost<br />
+        Oh no, you lost
         I hope you have an antivirus software ;)
       </p>
-      <img class="go-virus" src="assets/collision/stateBright.png" alt="">
+    </aside>
+      <img class="virus-img" src="assets/collision/stateBright.png" alt="" />
       <button id="tryAgain-btn" class="btn">Try Again?</button>
     </div>
 
     <!-- Win screen elements-->
     <div id="fourth-screen">
+      <aside>
       <h1>Congratulations!</h1>
       <p>
-        You have managed to cover from the virus. <br />
+        You have managed to recover from the virus. <br />
         Earth has become a safer place and you survived a pandemic.
       </p>
+    </aside>
       <button id="restart-btn" class="btn">Restart Game</button>
     </div>
 
