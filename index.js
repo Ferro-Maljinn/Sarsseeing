@@ -3,7 +3,8 @@ console.log("Am I working?");
 let gameIsOver = false;
 let gameIsWon = false;
 let score = 0;
-let vaxScore = 0;
+let vaxxineScore = 0;
+let maskScore = 0;
 let interval = 0;
 let mySound;
 let isGameRunning = false;
@@ -27,19 +28,25 @@ let sarsY = 500 - sarsHeight - 20;
 
 //all object variables
 //Virus
-let covX = 2000;
-let covY = 100;
-let covLength = 100;
-let covHeight = 100;
+let virusX = 2000;
+let virusY = 100;
+let virusLength = 70;
+let virusHeight = 70;
 //Vaxxine
 let vaxX = 2000;
 let vaxY = 500;
-let vaxLength = 100;
+let vaxxineLength = 100;
 let vaxHeight = 100;
+//Mask
+let maskX = 2000;
+let maskY = 700;
+let maskLength = 70;
+let maskHeight = 70;
 
-//Array of virus Objects
-let virusArray = [{ x: covX, y: covY, i: 0 }];
-let vaxArray = [{ x: vaxX, y: vaxY }];
+//Array of Obstacles
+let virusArray = [{ x: virusX, y: virusY, i: 0 }];
+let vaxxineArray = [{ x: vaxX, y: vaxY }];
+let maskArray = [ { x: maskX, y: maskY }];
 
 class virus {
   constructor(x, y, i) {
@@ -58,12 +65,17 @@ class vaxxine {
   }
 }
 
+class mask {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
 //Load all images
 function preload() {
   bg = loadImage("assets/starsSecondScreen.gif");
   sars = loadImage("assets/character.png");
-
-  scorePic = loadImage("assets/collision/Vax.png");
 
   virusBright = loadImage("assets/collision/stateBright.png");
   virusDark = loadImage("assets/collision/stateDark.png");
@@ -91,74 +103,107 @@ function setup() {
   //background(220);
   //text("tap here to play", 10, 20);
 }
+/**
+ */
+function drawVictoryScreen() {
+  sarsX = 20;
+  sarsY = 500 - sarsHeight - 20;
+  score = 0; //left
+  vaxxineScore = 0;
+  maskScore = 0;
+  virusArray = [{ x: virusX, y: virusY, i: 0 }];
+  firstScreen.style.display = "none";
+  secondScreen.style.display = "none";
+  thirdScreen.style.display = "none";
+  fourthScreen.style.display = "flex";
+  noLoop();
+}
 
 function draw() {
   if (isGameRunning) {
     if (gameIsWon) {
-      //background(bg);
-      sarsX = 20;
-      sarsY = 500 - sarsHeight - 20;
-      score = 0; //left
-      vaxScore = 0;
-      virusArray = [{ x: covX, y: covY, i: 0 }];
-      noLoop();
-      firstScreen.style.display = "none";
-      secondScreen.style.display = "none";
-      thirdScreen.style.display = "none";
-      fourthScreen.style.display = "flex";
+      drawVictoryScreen();
     } else {
       background(bg);
       interval += 1;
-      // delay (in the number of drawings) between changing virus' frames
+      // delay (in the number of drawings) between changing virus frames
       frq = 20;
 
-      //character of Sars
+      //character
       image(sars, sarsX, sarsY, sarsWidth, sarsHeight);
       //random virus spawning
       if (interval % 10 == 0) {
-        virusArray.push(new virus(width, random(20, windowHeight), interval));
+        virusArray.push(new virus(width, random(50, windowHeight), interval));
       }
-      //if (vaxScore == 30) {
-      //  gameIsWon = true;
-      //}
       //random vaxxine spawning
       if (interval % 1000 == 0) {
-        vaxArray.push(new vaxxine(width, random(40, windowHeight)));
+        vaxxineArray.push(new vaxxine(width, random(10, windowHeight)));
+      }
+      //random mask spawning
+      if (interval % 700 == 0) {
+        maskArray.push(new mask(width, random(10, windowHeight)));
       }
 
-      //for loop for the looping of the virusArray & animation frequency
+      //iterating the Array objects, display them & creating animation of the virus, with frequency(frq)
       for (let i = 0; i < virusArray.length; i++) {
         if (int(int((interval + virusArray[i].i) / frq)) % 2 == 0) {
           image(
             virusBright,
             virusArray[i].x,
             virusArray[i].y,
-            covLength,
-            covHeight
+            virusLength,
+            virusHeight
           );
         } else {
           image(
             virusDark,
             virusArray[i].x,
             virusArray[i].y,
-            covLength,
-            covHeight
+            virusLength,
+            virusHeight
           );
         }
       }
 
-      for (let i = 0; i < vaxArray.length; i++) {
-        image(vaxxinePic, vaxArray[i].x, vaxArray[i].y, vaxLength, vaxHeight);
+      for (let i = 0; i < vaxxineArray.length; i++) {
+        image(
+          vaxxinePic,
+          vaxxineArray[i].x,
+          vaxxineArray[i].y,
+          vaxxineLength,
+          vaxHeight
+        );
       }
 
+      for (let i = 0; i < maskArray.length; i++) {
+        image(
+          maskClean,
+          maskArray[i].x,
+          maskArray[i].y,
+          maskLength,
+          maskHeight
+        );
+      }
+
+      for (let i = 0; i < maskArray.length; i++) {
+        image(
+          maskDirty,
+          maskArray[i].x,
+          maskArray[i].y,
+          maskLength,
+          maskHeight
+        );
+      }
+
+      // All collisions
+      //Manhatten distance is smaller than 50,=> splice (cut out) object,=> increment Scores by one, => reset score
       for (let i = 0; i < virusArray.length; i++) {
         virusArray[i].x -= 4;
-
         //collision with virus
         if (
-          sarsX < virusArray[i].x + covLength - 50 && //left
+          sarsX < virusArray[i].x + virusLength - 50 && //left
           sarsX + sarsWidth > virusArray[i].x + 50 && //Right
-          sarsY < virusArray[i].y - 50 + covLength && //Top
+          sarsY < virusArray[i].y - 50 + virusLength && //Top
           sarsHeight + sarsY > virusArray[i].y + 50 //Bottom
         ) {
           gameIsOver = true;
@@ -173,25 +218,42 @@ function draw() {
         /*   console.log(score); */
       }
 
-      for (let i = 0; i < vaxArray.length; i++) {
-        vaxArray[i].x -= 6;
+      for (let i = 0; i < vaxxineArray.length; i++) {
+        vaxxineArray[i].x -= 6;
         //collision with vaxxine
         if (
-          sarsX < vaxArray[i].x + vaxLength - 20 && //left
-          sarsX + sarsWidth > vaxArray[i].x + 20 && //Right
-          sarsY < vaxArray[i].y - 20 + vaxLength && //Top
-          sarsHeight + sarsY > vaxArray[i].y + 20 //Bottom
+          sarsX < vaxxineArray[i].x + vaxxineLength - 20 && //left
+          sarsX + sarsWidth > vaxxineArray[i].x + 20 && //Right
+          sarsY < vaxxineArray[i].y - 20 + vaxxineLength && //Top
+          sarsHeight + sarsY > vaxxineArray[i].y + 20 //Bottom
         ) {
-          //Manhatten distance is smaller than 50,=> splice object,=> increment vaxScore by one, => reset score
-          //if (abs(vaxArray[i].x - sarsX) < 50 && abs(vaxArray[i].y - sarsY) < 50) {
-          vaxArray.splice(i, 1);
-          vaxScore = vaxScore + 1;
-          if (vaxScore == 10) {
+          vaxxineArray.splice(i, 1);
+          vaxxineScore = vaxxineScore + 1;
+          if (vaxxineScore == 1) {
             gameIsWon = true;
             //mySound.play();
           }
         }
-        /*   console.log(vaxScore); */
+        /*   console.log(vaxxineScore); */
+      }
+
+      for (let i = 0; i < maskArray.length; i++) {
+        maskArray[i].x -= 6;
+        //collision with maskArray
+        if (
+          sarsX < maskArray[i].x + maskLength - 20 && //left
+          sarsX + sarsWidth > maskArray[i].x + 20 && //Right
+          sarsY < maskArray[i].y - 20 + maskLength && //Top
+          sarsHeight + sarsY > maskArray[i].y + 20 //Bottom
+        ) {
+          //increment maskScore by one
+          maskArray.splice(i, 1);
+          maskScore = maskScore + 1;
+          if (maskScore == 20) {
+            // Needs to change to = Virus intervall to be decreased
+            gameIsWon = true;
+          }
+        }
       }
 
       // function to move my char left, right, up and down
@@ -215,14 +277,18 @@ function draw() {
         gameOver();
       }
       // status bar
-      scorePic.resize(100, 100);
-      image(scorePic, 700, 30);
+      vaxxinePic.resize(100, 100);
+      image(vaxxinePic, 700, 30);
+      maskClean.resize(100, 100);
+      image(maskClean, 1300, 30);
 
       fill(255, 204, 0);
       textStyle(BOLD);
       textSize(64);
-      let vaxScoreAndvaxTotal = "" + vaxScore.toString() + " / 10";
-      text(vaxScoreAndvaxTotal, 900, 100);
+      let vaxxineScoreAndVaxxineTotal = "" + vaxxineScore.toString() + " / 10";
+      text(vaxxineScoreAndVaxxineTotal, 900, 100);
+      let maskScoreAndMaskTotal = "" + maskScore.toString() + " / 20";
+      text(maskScoreAndMaskTotal, 1500, 100);
       text("Score: " + score.toString(), 200, 100);
       textStyle(NORMAL);
     }
@@ -238,8 +304,9 @@ function gameOver() {
   sarsX = 20;
   sarsY = 500 - sarsHeight - 20;
   score = 0; //left
-  vaxScore = 0;
-  virusArray = [{ x: covX, y: covY, i: 0 }];
+  vaxxineScore = 0;
+  maskScore = 0;
+  virusArray = [{ x: virusX, y: virusY, i: 0 }];
   isGameRunning = false;
   noLoop();
 }
@@ -287,9 +354,9 @@ window.addEventListener("load", () => {
 
   //Start the game again
   virusArray = [
-    { x: covX, y: covY },
-    { x: covX + 800, y: covY + 200 },
-    { x: covX + 1400, y: covY + 400 },
+    { x: virusX, y: virusY },
+    { x: virusX + 800, y: virusY + 200 },
+    { x: virusX + 1400, y: virusY + 400 },
   ];
   loop();
 });
