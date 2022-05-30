@@ -30,17 +30,17 @@ let sarsY = 500 - sarsHeight - 20;
 //Virus
 let virusX = 2000;
 let virusY = 100;
-let virusLength = 70;
+let virusWidth = 70;
 let virusHeight = 70;
 //Vaxxine
 let vaxX = 2000;
 let vaxY = 500;
-let vaxxineLength = 80;
-let vaxHeight = 80;
+let vaxxineWidth = 80;
+let vaxxineHeight = 70;
 //Mask
 let maskX = 2000;
 let maskY = 700;
-let maskLength = 70;
+let maskWidth = 70;
 let maskHeight = 70;
 
 //Array of Obstacles
@@ -151,7 +151,7 @@ function draw() {
             virusBright,
             virusArray[i].x,
             virusArray[i].y,
-            virusLength,
+            virusWidth,
             virusHeight
           );
         } else {
@@ -159,7 +159,7 @@ function draw() {
             virusDark,
             virusArray[i].x,
             virusArray[i].y,
-            virusLength,
+            virusWidth,
             virusHeight
           );
         }
@@ -170,27 +170,21 @@ function draw() {
           vaxxinePic,
           vaxxineArray[i].x,
           vaxxineArray[i].y,
-          vaxxineLength,
-          vaxHeight
+          vaxxineWidth,
+          vaxxineHeight
         );
       }
 
       for (let i = 0; i < maskArray.length; i++) {
-        image(
-          maskClean,
-          maskArray[i].x,
-          maskArray[i].y,
-          maskLength,
-          maskHeight
-        );
+        image(maskClean, maskArray[i].x, maskArray[i].y, maskWidth, maskHeight);
       }
 
-/*       for (let i = 0; i < maskArray.length; i++) {
+      /*       for (let i = 0; i < maskArray.length; i++) {
         image(
           maskDirty,
           maskArray[i].x,
           maskArray[i].y,
-          maskLength,
+          maskWidth,
           maskHeight
         );
       } */
@@ -201,9 +195,9 @@ function draw() {
         virusArray[i].x -= 4; //speed
         //collision with virus
         if (
-          sarsX < virusArray[i].x + virusLength - 50 && //left
+          sarsX < virusArray[i].x + virusWidth - 50 && //left
           sarsX + sarsWidth > virusArray[i].x + 50 && //Right
-          sarsY < virusArray[i].y - 50 + virusLength && //Top
+          sarsY < virusArray[i].y - 50 + virusWidth && //Top
           sarsHeight + sarsY > virusArray[i].y + 50 //Bottom
         ) {
           gameIsOver = true;
@@ -222,9 +216,9 @@ function draw() {
         vaxxineArray[i].x -= 6;
         //collision with vaxxine
         if (
-          sarsX < vaxxineArray[i].x + vaxxineLength - 20 && //left
+          sarsX < vaxxineArray[i].x + vaxxineWidth - 20 && //left
           sarsX + sarsWidth > vaxxineArray[i].x + 20 && //Right
-          sarsY < vaxxineArray[i].y - 20 + vaxxineLength && //Top
+          sarsY < vaxxineArray[i].y - 20 + vaxxineWidth && //Top
           sarsHeight + sarsY > vaxxineArray[i].y + 20 //Bottom
         ) {
           vaxxineArray.splice(i, 1);
@@ -241,9 +235,9 @@ function draw() {
         maskArray[i].x -= 6;
         //collision with maskArray
         if (
-          sarsX < maskArray[i].x + maskLength - 20 && //left
+          sarsX < maskArray[i].x + maskWidth - 20 && //left
           sarsX + sarsWidth > maskArray[i].x + 20 && //Right
-          sarsY < maskArray[i].y - 20 + maskLength && //Top
+          sarsY < maskArray[i].y - 20 + maskWidth && //Top
           sarsHeight + sarsY > maskArray[i].y + 20 //Bottom
         ) {
           //increment maskScore by one
