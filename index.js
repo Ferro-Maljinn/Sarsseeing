@@ -21,10 +21,10 @@ let tryAgainBtn = document.querySelector("#tryAgain-btn");
 let restartBtn = document.querySelector("#restart-btn");
 
 //character variables
-let sarsHeight = 100;
-let sarsWidth = 90;
-let sarsX = 20;
-let sarsY = 500 - sarsHeight - 20;
+let characterHeight = 100;
+let characterWidth = 90;
+let characterX = 20;
+let characterY = 500 - characterHeight + 200;
 
 //all object variables
 //Virus
@@ -75,7 +75,7 @@ class mask {
 //Load all images
 function preload() {
   bg = loadImage("assets/starsSecondScreen.gif");
-  sars = loadImage("assets/character.png");
+  character = loadImage("assets/character-normal-state.png");
 
   virusBright = loadImage("assets/collision/stateBright.png");
   virusDark = loadImage("assets/collision/stateDark.png");
@@ -106,8 +106,8 @@ function setup() {
 /**
  */
 function drawVictoryScreen() {
-  sarsX = 20;
-  sarsY = 500 - sarsHeight - 20;
+  characterX = 20;
+  characterY = 500 - characterHeight - 20;
   score = 0; //left
   vaxxineScore = 0;
   maskScore = 0;
@@ -130,7 +130,7 @@ function draw() {
       frq = 20;
 
       //character
-      image(sars, sarsX, sarsY, sarsWidth, sarsHeight);
+      image(character, characterX, characterY, characterWidth, characterHeight);
       //random virus spawning
       if (interval % 10 == 0) {
         virusArray.push(new virus(width, random(50, windowHeight), interval));
@@ -195,10 +195,10 @@ function draw() {
         virusArray[i].x -= 4; //speed
         //collision with virus
         if (
-          sarsX < virusArray[i].x + virusWidth - 50 && //left
-          sarsX + sarsWidth > virusArray[i].x + 50 && //Right
-          sarsY < virusArray[i].y - 50 + virusWidth && //Top
-          sarsHeight + sarsY > virusArray[i].y + 50 //Bottom
+          characterX < virusArray[i].x + virusWidth - 20 && //left
+          characterX + characterWidth > virusArray[i].x + 20 && //Right
+          characterY < virusArray[i].y - 20 + virusWidth && //Top
+          characterHeight + characterY > virusArray[i].y + 10 //Bottom
         ) {
           gameIsOver = true;
         }
@@ -216,10 +216,10 @@ function draw() {
         vaxxineArray[i].x -= 6;
         //collision with vaxxine
         if (
-          sarsX < vaxxineArray[i].x + vaxxineWidth - 20 && //left
-          sarsX + sarsWidth > vaxxineArray[i].x + 20 && //Right
-          sarsY < vaxxineArray[i].y - 20 + vaxxineWidth && //Top
-          sarsHeight + sarsY > vaxxineArray[i].y + 20 //Bottom
+          characterX < vaxxineArray[i].x + vaxxineWidth - 20 && //left
+          characterX + characterWidth > vaxxineArray[i].x + 20 && //Right
+          characterY < vaxxineArray[i].y - 20 + vaxxineWidth && //Top
+          characterHeight + characterY > vaxxineArray[i].y + 20 //Bottom
         ) {
           vaxxineArray.splice(i, 1);
           vaxxineScore = vaxxineScore + 1;
@@ -235,10 +235,10 @@ function draw() {
         maskArray[i].x -= 6;
         //collision with maskArray
         if (
-          sarsX < maskArray[i].x + maskWidth - 20 && //left
-          sarsX + sarsWidth > maskArray[i].x + 20 && //Right
-          sarsY < maskArray[i].y - 20 + maskWidth && //Top
-          sarsHeight + sarsY > maskArray[i].y + 20 //Bottom
+          characterX < maskArray[i].x + maskWidth - 20 && //left
+          characterX + characterWidth > maskArray[i].x + 20 && //Right
+          characterY < maskArray[i].y - 20 + maskWidth && //Top
+          characterHeight + characterY > maskArray[i].y + 20 //Bottom
         ) {
           //increment maskScore by one
           maskArray.splice(i, 1);
@@ -251,21 +251,25 @@ function draw() {
       }
 
       // function to move my char left, right, up and down
-      if (keyIsPressed && keyIsDown(LEFT_ARROW) && sarsX > 0) {
-        sarsX -= 10;
+      if (keyIsPressed && keyIsDown(LEFT_ARROW) && characterX > 0) {
+        characterX -= 10;
       }
-      if (keyIsPressed && keyIsDown(RIGHT_ARROW) && sarsX + sarsWidth < width) {
-        sarsX += 3;
+      if (
+        keyIsPressed &&
+        keyIsDown(RIGHT_ARROW) &&
+        characterX + characterWidth < width
+      ) {
+        characterX += 3;
       }
-      if (keyIsPressed && keyIsDown(UP_ARROW) && sarsY > 0) {
-        sarsY -= 5;
+      if (keyIsPressed && keyIsDown(UP_ARROW) && characterY > 0) {
+        characterY -= 5;
       }
       if (
         keyIsPressed &&
         keyIsDown(DOWN_ARROW) &&
-        sarsY + sarsHeight < height
+        characterY + characterHeight < height
       ) {
-        sarsY += 5;
+        characterY += 5;
       }
       if (gameIsOver) {
         gameOver();
@@ -302,8 +306,8 @@ function gameOver() {
   secondScreen.style.display = "none";
   thirdScreen.style.display = "flex";
   fourthScreen.style.display = "none";
-  sarsX = 20;
-  sarsY = 500 - sarsHeight - 20;
+  characterX = 20;
+  characterY = 500 - characterHeight - 20;
   score = 0; //left
   vaxxineScore = 0;
   maskScore = 0;
