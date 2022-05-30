@@ -35,8 +35,8 @@ let virusHeight = 70;
 //Vaxxine
 let vaxX = 2000;
 let vaxY = 500;
-let vaxxineLength = 100;
-let vaxHeight = 100;
+let vaxxineLength = 80;
+let vaxHeight = 80;
 //Mask
 let maskX = 2000;
 let maskY = 700;
@@ -46,7 +46,7 @@ let maskHeight = 70;
 //Array of Obstacles
 let virusArray = [{ x: virusX, y: virusY, i: 0 }];
 let vaxxineArray = [{ x: vaxX, y: vaxY }];
-let maskArray = [ { x: maskX, y: maskY }];
+let maskArray = [{ x: maskX, y: maskY }];
 
 class virus {
   constructor(x, y, i) {
@@ -140,7 +140,7 @@ function draw() {
         vaxxineArray.push(new vaxxine(width, random(10, windowHeight)));
       }
       //random mask spawning
-      if (interval % 700 == 0) {
+      if (interval % 600 == 0) {
         maskArray.push(new mask(width, random(10, windowHeight)));
       }
 
@@ -185,7 +185,7 @@ function draw() {
         );
       }
 
-      for (let i = 0; i < maskArray.length; i++) {
+/*       for (let i = 0; i < maskArray.length; i++) {
         image(
           maskDirty,
           maskArray[i].x,
@@ -193,12 +193,12 @@ function draw() {
           maskLength,
           maskHeight
         );
-      }
+      } */
 
       // All collisions
       //Manhatten distance is smaller than 50,=> splice (cut out) object,=> increment Scores by one, => reset score
       for (let i = 0; i < virusArray.length; i++) {
-        virusArray[i].x -= 4;
+        virusArray[i].x -= 4; //speed
         //collision with virus
         if (
           sarsX < virusArray[i].x + virusLength - 50 && //left
@@ -277,18 +277,25 @@ function draw() {
         gameOver();
       }
       // status bar
-      vaxxinePic.resize(100, 100);
-      image(vaxxinePic, 700, 30);
-      maskClean.resize(100, 100);
-      image(maskClean, 1300, 30);
+      fill(176, 196, 222);
+      rect(0, 0, windowWidth, 140);
+
+      virusBright.resize(50, 50);
+      image(virusBright, 40, 60);
+
+      vaxxinePic.resize(70, 70);
+      image(vaxxinePic, 500, 50);
+
+      maskClean.resize(50, 50);
+      image(maskClean, 850, 60);
 
       fill(255, 204, 0);
       textStyle(BOLD);
-      textSize(64);
+      textSize(40);
       let vaxxineScoreAndVaxxineTotal = "" + vaxxineScore.toString() + " / 10";
-      text(vaxxineScoreAndVaxxineTotal, 900, 100);
+      text(vaxxineScoreAndVaxxineTotal, 640, 100);
       let maskScoreAndMaskTotal = "" + maskScore.toString() + " / 20";
-      text(maskScoreAndMaskTotal, 1500, 100);
+      text(maskScoreAndMaskTotal, 980, 100);
       text("Score: " + score.toString(), 200, 100);
       textStyle(NORMAL);
     }
