@@ -21,8 +21,8 @@ let tryAgainBtn = document.querySelector("#tryAgain-btn");
 let restartBtn = document.querySelector("#restart-btn");
 
 //character variables
-let characterHeight = 100;
-let characterWidth = 90;
+let characterHeight = 75;
+let characterWidth = 75;
 let characterX = 20;
 let characterY = 500 - characterHeight + 200;
 
