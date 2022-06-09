@@ -8,6 +8,7 @@ let maskScore = 0;
 let interval = 0;
 let mySound;
 let isGameRunning = false;
+let allMasks = [];
 
 //Lounch screen; Canvas screen; GameOver screen
 let firstScreen = document.querySelector("#first-screen");
@@ -30,8 +31,8 @@ let characterY = 500 - characterHeight + 200;
 //Virus
 let virusX = 2000;
 let virusY = 100;
-let virusWidth = 70;
-let virusHeight = 70;
+let virusWidth = 55;
+let virusHeight = 55;
 //Vaxxine
 let vaxX = 2000;
 let vaxY = 500;
@@ -75,15 +76,27 @@ class mask {
 //Load all images
 function preload() {
   bg = loadImage("assets/starsSecondScreen.gif");
-  character = loadImage("assets/character-normal-state.png");
 
+  // Load all forms of the characters
+  char0 = loadImage("assets/character/char0.png");
+  char1 = loadImage("assets/character/char1.png");
+  char2 = loadImage("assets/character/char2.png");
+  char3 = loadImage("assets/character/char3.png");
+  char4 = loadImage("assets/character/char4.png");
+  char5 = loadImage("assets/character/char5.png");
+  char6 = loadImage("assets/character/char6.png");
+
+  // Load all collission objects
   virusBright = loadImage("assets/collision/stateBright.png");
   virusDark = loadImage("assets/collision/stateDark.png");
-
   vaxxinePic = loadImage("assets/collision/Vax.png");
-
   maskClean = loadImage("assets/collision/maskClean.png");
-  maskDirty = loadImage("assets/collision/maskDirty.png");
+  mask0 = loadImage("assets/collision/all-masks/mask0.png");
+  mask1 = loadImage("assets/collision/all-masks/mask1.png");
+  mask2 = loadImage("assets/collision/all-masks/mask2.png");
+  mask3 = loadImage("assets/collision/all-masks/mask3.png");
+  mask4 = loadImage("assets/collision/all-masks/mask4.png");
+  mask5 = loadImage("assets/collision/all-masks/mask5.png");
 
   //soundFormats("mp3", "ogg");
   // mySound = loadSound("assets/doorbell");
@@ -95,6 +108,8 @@ function windowResized() {
 
 function setup() {
   let canvas = createCanvas(windowWidth, windowHeight - 20);
+  image(bg, 50, 0);
+  /* tint(0, 153, 204, 126); */ // Apply transparency without changing color ==> Needs to change (apply only on background) ==> (Maybe a debuff for Tresor Mask?)
   canvas.parent("second-screen");
   textAlign(CENTER);
   // Including sound
@@ -124,16 +139,16 @@ function draw() {
     if (gameIsWon) {
       drawVictoryScreen();
     } else {
-      background(bg);
+      background(bg, 255);
       interval += 1;
-      // delay (in the number of drawings) between changing virus frames
+      // delay (in the number of drawings) between virus animation
       frq = 20;
 
       //character
-      image(character, characterX, characterY, characterWidth, characterHeight);
+      image(char0, characterX, characterY, characterWidth, characterHeight);
       //random virus spawning
       if (interval % 10 == 0) {
-        virusArray.push(new virus(width, random(50, windowHeight), interval));
+        virusArray.push(new virus(width, random(140, windowHeight), interval));
       }
       //random vaxxine spawning
       if (interval % 1000 == 0) {
@@ -176,18 +191,12 @@ function draw() {
       }
 
       for (let i = 0; i < maskArray.length; i++) {
-        image(maskClean, maskArray[i].x, maskArray[i].y, maskWidth, maskHeight);
+        image(mask0, maskArray[i].x, maskArray[i].y, maskWidth, maskHeight);
+        /* image(mask1, maskArray[i].x, maskArray[i].y, maskWidth, maskHeight);
+        image(mask2, maskArray[i].x, maskArray[i].y, maskWidth, maskHeight);
+        image(mask3, maskArray[i].x, maskArray[i].y, maskWidth, maskHeight);
+        image(mask4, maskArray[i].x, maskArray[i].y, maskWidth, maskHeight); */
       }
-
-      /*       for (let i = 0; i < maskArray.length; i++) {
-        image(
-          maskDirty,
-          maskArray[i].x,
-          maskArray[i].y,
-          maskWidth,
-          maskHeight
-        );
-      } */
 
       // All collisions
       //Manhatten distance is smaller than 50,=> splice (cut out) object,=> increment Scores by one, => reset score
@@ -261,7 +270,7 @@ function draw() {
       ) {
         characterX += 3;
       }
-      if (keyIsPressed && keyIsDown(UP_ARROW) && characterY > 0) {
+      if (keyIsPressed && keyIsDown(UP_ARROW) && characterY > 140) {
         characterY -= 5;
       }
       if (
@@ -275,7 +284,7 @@ function draw() {
         gameOver();
       }
       // status bar
-      fill(176, 196, 222);
+      fill(176, 196, 222,100);
       rect(0, 0, windowWidth, 140);
 
       virusBright.resize(50, 50);
