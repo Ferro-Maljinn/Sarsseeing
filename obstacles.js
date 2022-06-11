@@ -78,12 +78,13 @@ function virusCollision() {
     }
     if (virusArray[i].x < 0) {
       virusArray.splice(i, 1);
-      score = score + 1;
+      score += 1;
+      //print players score if game is over NOTE: write a conditional if player scored 0!!!! Reset the score on gameOver Screen without having to reload browser!!!
+      scoreElement.innerText = score;
       if (gameIsOver == true) {
         score = 0;
       }
     }
-    /*   console.log(score); */
   }
 }
 
