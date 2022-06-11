@@ -9,15 +9,16 @@ let gameIsRunning = false;
 let interval = 0;
 
 //Load Screens: Landing Page; Game Screen; Victory Screen; GameOver screen
-let firstScreen = document.querySelector("#first-screen");
-let secondScreen = document.querySelector("#second-screen");
-let thirdScreen = document.querySelector("#third-screen");
-let fourthScreen = document.querySelector("#fourth-screen");
+let splashScreen = document.querySelector("#splash-screen");
+let playScreen = document.querySelector("#play-screen");
+let gameOverScreen = document.querySelector("#game-over-screen");
+let victoryScreen = document.querySelector("#victory-screen");
 
 //Load buttons
 let startBtn = document.querySelector("#start-btn");
 let tryAgainBtn = document.querySelector("#tryAgain-btn");
 let restartBtn = document.querySelector("#restart-btn");
+
 
 //Load all images
 function preload() {
@@ -54,7 +55,7 @@ function setup() {
   let canvas = createCanvas(windowWidth, windowHeight - 20);
   image(bg, 50, 0);
   /* tint(0, 153, 204, 126); */ // Apply transparency without changing color ==> Needs to change (apply only on background) ==> (Maybe a debuff for Tresor Mask?)
-  canvas.parent("second-screen");
+  canvas.parent("play-screen");
   textAlign(CENTER);
 }
 
@@ -95,29 +96,29 @@ function draw() {
   }
 }
 
-//Showing the first screen
+//Showing the Splash-Screen
 window.addEventListener("load", () => {
-  secondScreen.style.display = "none";
-  thirdScreen.style.display = "none";
-  fourthScreen.style.display = "none";
+  playScreen.style.display = "none";
+  gameOverScreen.style.display = "none";
+  victoryScreen.style.display = "none";
   noLoop();
 
   //listener on start button; link to game-canvas
   startBtn.addEventListener("click", () => {
-    firstScreen.style.display = "none";
-    secondScreen.style.display = "flex";
-    thirdScreen.style.display = "none";
-    fourthScreen.style.display = "none";
+    splashScreen.style.display = "none";
+    playScreen.style.display = "flex";
+    gameOverScreen.style.display = "none";
+    victoryScreen.style.display = "none";
     gameIsRunning = true;
     loop();
   });
 
   //listener on tryAgain button; link to game-canvas
   tryAgainBtn.addEventListener("click", () => {
-    firstScreen.style.display = "none";
-    secondScreen.style.display = "flex";
-    thirdScreen.style.display = "none";
-    fourthScreen.style.display = "none";
+    splashScreen.style.display = "none";
+    playScreen.style.display = "flex";
+    gameOverScreen.style.display = "none";
+    victoryScreen.style.display = "none";
     gameIsOver = false;
     gameIsRunning = true;
     gameIsWon = false;
@@ -126,10 +127,10 @@ window.addEventListener("load", () => {
 
   //listener on re-start button; link to game-canvas
   restartBtn.addEventListener("click", () => {
-    firstScreen.style.display = "none";
-    secondScreen.style.display = "flex";
-    thirdScreen.style.display = "none";
-    fourthScreen.style.display = "none";
+    splashScreen.style.display = "none";
+    playScreen.style.display = "flex";
+    gameOverScreen.style.display = "none";
+    victoryScreen.style.display = "none";
     gameIsOver = false;
     gameIsWon = false;
     gameIsRunning = true;

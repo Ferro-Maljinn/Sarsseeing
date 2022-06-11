@@ -12,8 +12,8 @@ body {
   align-items: center;
 }
 
-#first-screen,
-#fourth-screen {
+#splash-screen,
+#victory-screen {
   width: 100vw;
   height: 100vh;
   position: relative;
@@ -121,14 +121,13 @@ aside {
   /*  Mouse leave - Change to: "default"; */
 }
 
-#third-screen {
+#game-over-screen {
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  /*   background-image: src("assets/starsSecondScreen.gif"); */
   background-size: cover;
   background-repeat: no-repeat;
 }

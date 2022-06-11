@@ -55,11 +55,19 @@ function loopArraysOfAllObstacles() {
   //Note: Figure out how to loop over different images inside the same array.(to switch the mask of the character when colliding)
   for (let i = 0; i < maskArray.length; i++) {
     image(mask0, maskArray[i].x, maskArray[i].y, maskWidth, maskHeight);
-    /* image(mask1, maskArray[i].x, maskArray[i].y, maskWidth, maskHeight);
-        image(mask2, maskArray[i].x, maskArray[i].y, maskWidth, maskHeight);
-        image(mask3, maskArray[i].x, maskArray[i].y, maskWidth, maskHeight);
-        image(mask4, maskArray[i].x, maskArray[i].y, maskWidth, maskHeight); */
   }
+/*   for (let i = 0; i < maskArray.length; i++) {
+    image(mask1, maskArray[i].x, maskArray[i].y, maskWidth, maskHeight);
+  }
+  for (let i = 0; i < maskArray.length; i++) {
+    image(mask2, maskArray[i].x, maskArray[i].y, maskWidth, maskHeight);
+  }
+  for (let i = 0; i < maskArray.length; i++) {
+    image(mask3, maskArray[i].x, maskArray[i].y, maskWidth, maskHeight);
+  }
+  for (let i = 0; i < maskArray.length; i++) {
+    image(mask4, maskArray[i].x, maskArray[i].y, maskWidth, maskHeight);
+  } */
 }
 
 // All collisions defined

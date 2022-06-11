@@ -31,10 +31,10 @@ function spawnObjects() {
   }
   //random vaxxine spawning
   if (interval % 1000 == 0) {
-    vaxxineArray.push(new vaxxine(width, random(10, windowHeight)));
+    vaxxineArray.push(new vaxxine(width, random(140, windowHeight)));
   }
   //random mask spawning
   if (interval % 600 == 0) {
-    maskArray.push(new mask(width, random(10, windowHeight)));
+    maskArray.push(new mask(width, random(140, windowHeight)));
   }
 }
