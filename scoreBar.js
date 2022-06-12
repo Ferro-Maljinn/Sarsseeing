@@ -2,6 +2,8 @@ let score = 0;
 let vaxxineScore = 0;
 let maskScore = 0;
 
+let scoreElement = document.querySelector('#score');
+
 function scoreBar() {
   fill(176, 196, 222, 100);
   rect(0, 0, windowWidth, 140);
