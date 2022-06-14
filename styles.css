@@ -14,8 +14,8 @@ body {
 
 #splash-screen,
 #victory-screen {
-  width: 100vw;
-  height: 100vh;
+  width: 75%;
+  height: 50%;
   position: relative;
   display: flex;
   justify-content: center;
@@ -23,6 +23,18 @@ body {
   flex-direction: row;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 1100px) {
+  #splash-screen,
+  #victory-screen {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: stretch;
+  }
 }
 
 /* #start-img {
@@ -45,26 +57,35 @@ h1 {
   font-family: "Sirin Stencil", cursive;
   font-style: normal;
   font-weight: normal;
-  font-size: 48px;
+  font-size: 1.25em;
   line-height: 93px;
-  justify-content: center;
+
   text-align: center;
-  color: #ffffff;
+  color: #efff8e;
   text-shadow: 0px 0px 30px #f5a9a9c9;
 
   /* Auto layout */
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 16px 16px;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 32px;
 
   position: relative;
-  width: 500px;
-  margin: 64px;
 }
 
+@media screen and (max-width: 1100px) {
+  h1 {
+    padding: 16px;
+    font-size: 0.75em;
+  }
+}
+h2 {
+  font-size: inherit;
+  color: #efff8e;
+  font-size: 1.8em;
+}
 .column-items {
+  padding: 32px;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -84,11 +105,10 @@ aside {
 
 .btn {
   /* state = default */
+  padding: 32px;
 
-  position: static;
-  align-content: center;
   width: fit-content;
-  height: 100px;
+  height: 60px;
   left: 16px;
   top: 16px;
 
@@ -101,27 +121,25 @@ aside {
 
   /* Auto layout */
   display: flex;
+  position: relative;
+  align-content: center;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 16px;
 
   background: #fffce3;
-  border-radius: 24px;
-
-  /*animation-timing-function: ease-out;
-  animation-duration: 300ms; */
+  border-radius: 10.76px;
 }
 
 .btn:hover {
   /* state = while Hovering */
-  background: #bdff00;
-  color: #ffffff;
+  background: #efff8e;
+
   box-shadow: 0px 0px 40px #f5a9a9c9;
   /*  Mouse leave - Change to: "default"; */
 }
 
-#game-over-screen {
+#gameover-screen {
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -132,12 +150,52 @@ aside {
   background-repeat: no-repeat;
 }
 
+.h1go {
+  font-size: 8em;
+}
+
+@media screen and (max-width: 1100px) {
+  .h1go {
+    font-size: 4em;
+  }
+}
+
+.pGO {
+  font-size: 2em;
+  text-align: center;
+}
+
+@media screen and (max-width: 1100px) {
+  .pGO {
+    font-size: 1.5em;
+  }
+}
+
 p {
+  padding: 32px;
   color: white;
   font-size: 0.85em;
-  margin: 1%;
+}
+
+@media screen and (max-width: 1100px) {
+  p {
+    padding: 16px;
+    font-size: 0.5em;
+  }
 }
 
 .virus-img {
   margin: 2%;
+}
+
+@media screen and (max-width: 1100px) {
+  .virus-img {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+#score {
+  color: #efff8e;
+  font-size: 1.25em;
 }

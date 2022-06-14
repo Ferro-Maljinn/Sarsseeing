@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#317EFB/> { "theme_color": "#317EFB" }
     <meta name="black>`
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Sars CoVer 4</title>
+    <title>Sarsseeing</title>
 
     <link rel="stylesheet" href="styles.css" />
     <link rel=“icon” type=“image/x-icon” href=“assets/character.png”>
@@ -43,33 +43,26 @@
     <div id="splash-screen">
       <div column-items>
         <aside>
+          <h1>Sarsseeing</h1>
           <p>
-            Known for its exceptional range of attractions and vibrant <br />
-            Berlin's cultural scene may now blossom back into its old gray
-            beauty. <br />
-            Sights, bars, and clubs are open again, and you can smell the smoke
-            from raves. <br />
-            But huh... oh<br />
-            Winter 2022 still seems to be bad timing for sightseeing in <br />
-            There seems to arrive a new wave of covid that's clouding the city's
-            air... <br />
-            The rules for covering the virus have been refreshed, and the
-            vaccinations <br />
-            are now increased to 10 boosters. <br />
-            Would you still like to go sightseeing? <br />
-            Well... okay...try to avoid colliding with a virus and watch out for
-            the booster shots.
+            Hello Stranger, <br> You couldn't wait any longer to go clubbing, huh?
+            Today finally our clubs reopened again, and here you are with
+            ants in your pants!<br> Lovely that the post-lockdown brought you to our
+            club scene. Known for its exceptional range of attractions and
+            vibrancy, Berlin's cultural scene may now blossom back into its old
+            colorful beauty.<br> Can you smell the smoke steaming of raves? You're
+            probably wondering where the frosty Saturday evening may take you,
+            huh?<br>Well...<br> Although the lockdown is finally over, we should still
+            care for each other. Look at the masks that belong to the individual
+            Clubs in Berlin. It is advisable to wear masks to cover yourself
+            from viruses. Maybe they have a surprise or two in store.<br><br>PS. Vaccines can save lives.
           </p>
         </aside>
       </div>
       <div class="column-items">
-        <h1>Sarsseeing 22</h1>
+        <h2>Instructions:</h2>
+        <img src="assets/instruction-keyarrows.png" />
         <button id="start-btn" class="btn">Start Game</button>
-        <!--         <img
-          id="start-img"
-          src="assets/starsFirstScreen.gif"
-          alt="black background with stars"
-        /> -->
       </div>
     </div>
 
@@ -77,18 +70,12 @@
     <div id="play-screen"></div>
 
     <!-- GameOver screen elements-->
-    <div id="game-over-screen">
-      <aside>
-      <h1>Game Over!</h1>
-      <p>
-        Oh no, you lost
-        I hope you have an antivirus software ;)
-      </p>
-      <div>
-        <p>You dodged <span id="score"></span> viruses this game</p>
-        <p>Your highscore is <span id="high-score"></span></p>
-      </div>
-    </aside>
+    <div id="gameover-screen">
+        <h1 class="h1go">Game Over!</h1>
+        <p class="pGO">Oh no, you lost. Give it another try.<br>
+        You dodged <span id="score"></span> viruses this game</p>
+        <div>
+        </div>
       <img class="virus-img" src="assets/collision/stateBright.png" alt="" />
       <button id="tryAgain-btn" class="btn">Try Again?</button>
     </div>
@@ -96,22 +83,18 @@
     <!-- Win screen elements-->
     <div id="victory-screen">
       <aside>
-      <h1>Congratulations!</h1>
-      <p>
-        You have managed to recover from the virus. <br />
-        Earth has become a safer place and you survived a pandemic.
-      </p>
-    </aside>
+        <h1>Congratulations!</h1>
+        <p>
+          You have managed to recover from the virus. <br />
+          Earth has become a safer place and you survived a pandemic.
+        </p>
+      </aside>
       <button id="restart-btn" class="btn">Restart Game</button>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js"></script>
+    <script src="https://p5js.org/assets/js/p5.dom.min.js"></script>
+    <script src="https://p5js.org/assets/js/p5.sound.min.js"></script>
     <script src="scetch.js"></script>
-    <script src="scoreBar.js"></script>
-    <script src="character.js"></script>
-    <script src="victory.js"></script>
-    <script src="gameover.js"></script>
-    <script src="obstacles.js"></script>
-    <script src="spawnsObjects.js"></script>
   </body>
 </html>
