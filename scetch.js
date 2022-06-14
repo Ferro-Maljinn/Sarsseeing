@@ -294,15 +294,13 @@ function draw() {
           characterY < virusArray[i].y - 20 + virusWidth && //Top
           characterHeight + characterY > virusArray[i].y + 10 //Bottom
         ) {
-          // If character collides with virus cut out virus obstacle imediately
+          // If character collides with virus cut out virus obstacle immediately
           virusArray.splice(i, 1);
           vaxxineScore -= 1;
           if (vaxxineScore == 0) {
             gameIsOver = true;
           }
-          pauseSound();
           soundVirus.play();
-          soundBackground.play();
         }
         if (virusArray[i].x < 0) {
           virusArray.splice(i, 1);
@@ -324,9 +322,7 @@ function draw() {
           characterY < vaxxineArray[i].y - 20 + vaxxineWidth && //Top
           characterHeight + characterY > vaxxineArray[i].y + 20 //Bottom
         ) {
-          pauseSound();
           soundVaxxine.play();
-          soundBackground.play();
           vaxxineArray.splice(i, 1);
 
           if (vaxxineScore < maxLife) {
