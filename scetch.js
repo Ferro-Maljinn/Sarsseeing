@@ -136,7 +136,7 @@ function setup() {
   /* let virusArray = [{ x: virusX, y: virusY, i: 0 }];
   let vaxxineArray = [{ x: vaxX, y: vaxY }]; */
 
-  soundBerghain = new Audio("sounds/");
+  soundBerghain = new Audio("sounds/berghain.mp3");
   soundBerghain.volume = 1;
   soundKitKat = new Audio("sounds/kitkat.mp3");
   soundKitKat.volume = 1;
