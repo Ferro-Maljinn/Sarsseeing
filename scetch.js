@@ -53,7 +53,7 @@ let vaxxineWidth = 80;
 let vaxxineHeight = 70;
 //Mask
 let maskX = 2000;
-let maskY = 700;
+let maskY = 0;
 let maskWidth = 70;
 let maskHeight = 70;
 //Audios
@@ -154,42 +154,42 @@ function setup() {
   maskArray = [
     {
       x: maskX + 3000,
-      y: maskY + 60,
+      y: maskY + 100,
       img: mask0,
       sound: soundBerghain,
       name: "Berghain",
     },
     {
       x: maskX + 2450,
-      y: maskY + 95,
+      y: maskY + 350,
       img: mask1,
       sound: soundKitKat,
       name: "Kitkat",
     },
     {
       x: maskX + 9000,
-      y: maskY + 80,
+      y: maskY + 450,
       img: mask2,
       sound: soundSisyphos,
       name: "Sisyphos",
     },
     {
       x: maskX + 200,
-      y: maskY + 30,
+      y: maskY + 850,
       img: mask3,
       sound: soundTresor,
       name: "Tresor",
     },
     {
-      x: maskX + 700,
-      y: maskY + 10,
+      x: maskX + 7000,
+      y: maskY + 700,
       img: mask4,
       sound: soundWildeRenate,
       name: "WildeRenate",
     },
     {
       x: maskX + 5000,
-      y: maskY,
+      y: maskY + 200,
       img: mask5,
       sound: soundWatergate,
       name: "Watergate",
@@ -300,8 +300,6 @@ function draw() {
           if (vaxxineScore == 0) {
             gameIsOver = true;
           }
-
-          /* gameIsOver = true; */
           pauseSound();
           soundVirus.play();
           soundBackground.play();
@@ -353,7 +351,6 @@ function draw() {
             maskArray[i].sound.play();
             // seconds = 30 sec
             setTimeout(() => {
-              //to replay then the background music
               soundBackground.play();
             }, 78000);
           }
@@ -362,7 +359,6 @@ function draw() {
             maskArray[i].sound.play();
             // seconds = 15 sec
             setTimeout(() => {
-              //to replay then the background music
               soundBackground.play();
             }, 15000);
           }
@@ -371,7 +367,6 @@ function draw() {
             maskArray[i].sound.play();
             // seconds = 13 sec
             setTimeout(() => {
-              //to replay then the background music
               soundBackground.play();
             }, 13000);
           }
@@ -380,7 +375,6 @@ function draw() {
             maskArray[i].sound.play();
             // seconds = 17 sec
             setTimeout(() => {
-              //to replay then the background music
               soundBackground.play();
             }, 17000);
           }
