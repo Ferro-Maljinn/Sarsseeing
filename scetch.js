@@ -131,7 +131,7 @@ function setup() {
   let canvas = createCanvas(windowWidth, windowHeight - 20);
   image(bg, 50, 0);
   /* tint(0, 153, 204, 126); */ // Apply transparency without changing color ==> Needs to change (apply only on background) ==> (Maybe a debuff for Tresor Mask?)
-  canvas.parent("second-screen");
+  canvas.parent("play-screen");
   textAlign(CENTER);
   /* let virusArray = [{ x: virusX, y: virusY, i: 0 }];
   let vaxxineArray = [{ x: vaxX, y: vaxY }]; */
@@ -496,7 +496,6 @@ window.addEventListener("load", () => {
     playScreen.style.display = "flex";
     gameOverScreen.style.display = "none";
     victoryScreen.style.display = "none";
-    score = 0; //left
     gameIsOver = false;
     gameIsWon = false;
     gameIsRunning = true;
