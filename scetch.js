@@ -22,8 +22,8 @@ let restartBtn = document.querySelector("#restart-btn");
 // Variables for the score
 let scoreElement = document.querySelector("#score");
 let score = 0;
-let vaxxineScore = 0;
-
+const maxLife = 7;
+let vaxxineScore = maxLife;
 
 //Variables for the mask images
 let bg;
@@ -210,6 +210,16 @@ function drawVictoryScreen() {
   noLoop();
 }
 
+function pauseSound() {
+  soundBackground.pause();
+  soundBerghain.pause();
+  soundKitKat.pause();
+  soundTresor.pause();
+  soundSisyphos.pause();
+  soundWatergate.pause();
+  soundWildeRenate.pause();
+}
+
 function draw() {
   //variable 'gameIsRunning' starts as false ( file: scetch.js - line: 6)
   if (gameIsRunning) {
@@ -221,7 +231,7 @@ function draw() {
       //'frq' delay (in the number of drawings) between virus animation
       frq = 20;
 
-      //Display the character, defined movement (file: character.js)
+      //Display the character, defined movement
       image(char0, characterX, characterY, characterWidth, characterHeight);
 
       //spawns all objects: virus; vaxxines; masks
@@ -276,7 +286,6 @@ function draw() {
         // Score increases
         if (virusX + virusWidth <= characterX) {
           score += 1;
-          scoreElement;
         }
         //collision with virus
         if (
@@ -285,23 +294,26 @@ function draw() {
           characterY < virusArray[i].y - 20 + virusWidth && //Top
           characterHeight + characterY > virusArray[i].y + 10 //Bottom
         ) {
-          console.log('is game over?')
-          gameIsOver = true;
-          soundBackground.pause();
-          soundBerghain.pause();
-          soundKitKat.pause();
-          soundTresor.pause();
-          soundSisyphos.pause();
-          soundWatergate.pause();
-          soundVirus.pause();
+          // If character collides with virus cut out virus obstacle imediately
+          virusArray.splice(i, 1);
+          vaxxineScore -= 1;
+          if (vaxxineScore == 0) {
+            gameIsOver = true;
+          }
+
+          /* gameIsOver = true; */
+          pauseSound();
+          soundVirus.play();
+          soundBackground.play();
         }
         if (virusArray[i].x < 0) {
           virusArray.splice(i, 1);
-          score = score + 1;
+          score += 1;
           //print players score if game is over NOTE: write a conditional if player scored 0!!!! Reset the score on gameOver Screen without having to reload browser!!!
           scoreElement.innerText = score;
           if (gameIsOver == true) {
             score = 0;
+            vaxxineScore = maxLife;
           }
         }
       }
@@ -314,18 +326,13 @@ function draw() {
           characterY < vaxxineArray[i].y - 20 + vaxxineWidth && //Top
           characterHeight + characterY > vaxxineArray[i].y + 20 //Bottom
         ) {
+          pauseSound();
           soundVaxxine.play();
-          /* setTimeout(() => {
-            //to replay then the background music
-            soundBackground.play();
-          }, 1000);
-          soundBackground.play(); */
-
+          soundBackground.play();
           vaxxineArray.splice(i, 1);
-          vaxxineScore = vaxxineScore + 1;
-          if (vaxxineScore == 1) {
-            gameIsWon = true;
-            vaxxineScore = 0;
+
+          if (vaxxineScore < maxLife) {
+            vaxxineScore += 1;
           }
         }
       }
@@ -342,57 +349,61 @@ function draw() {
           maskArray[i].x = 15000;
           // Check name of maskArray.name and play, backgroundmusik = stop on masks related to the clubs
           if (maskArray[i].name == "Berghain") {
-            soundBackground.pause();
+            pauseSound();
             maskArray[i].sound.play();
+            // seconds = 30 sec
             setTimeout(() => {
               //to replay then the background music
               soundBackground.play();
             }, 78000);
           }
           if (maskArray[i].name == "Kitkat") {
-            soundBackground.pause();
+            pauseSound();
             maskArray[i].sound.play();
+            // seconds = 15 sec
             setTimeout(() => {
               //to replay then the background music
               soundBackground.play();
-            }, 1000);
+            }, 15000);
           }
           if (maskArray[i].name == "Tresor") {
-            soundBackground.pause();
+            pauseSound();
             maskArray[i].sound.play();
+            // seconds = 13 sec
             setTimeout(() => {
               //to replay then the background music
+              soundBackground.play();
+            }, 13000);
+          }
+          if (maskArray[i].name == "Sisyphos") {
+            pauseSound();
+            maskArray[i].sound.play();
+            // seconds = 17 sec
+            setTimeout(() => {
+              //to replay then the background music
+              soundBackground.play();
+            }, 17000);
+          }
+          if (maskArray[i].name == "WildeRenate") {
+            pauseSound();
+            maskArray[i].sound.play();
+            // seconds = 27 sec
+            setTimeout(() => {
               soundBackground.play();
             }, 27000);
           }
-          if (maskArray[i].name == "Sisyphos") {
-            soundBackground.pause();
-            maskArray[i].sound.play();
-            setTimeout(() => {
-              //to replay then the background music
-              soundBackground.play();
-            }, 10000);
-          }
-          if (maskArray[i].name == "WildeRenate") {
-            soundBackground.pause();
-            maskArray[i].sound.play();
-            setTimeout(() => {
-              //to replay then the background music
-              soundBackground.play();
-            }, 1000);
-          }
           if (maskArray[i].name == "Watergate") {
-            soundBackground.pause();
+            pauseSound();
             maskArray[i].sound.play();
             setTimeout(() => {
-              //to replay then the background music
+              // seconds = 15 sec
               soundBackground.play();
-            }, 16000);
+            }, 15000);
           }
         }
         //Eliminate mask if player collides with it and print itback again
         if (maskArray[i].x < -200) {
-          maskArray[i].x = 10000;
+          maskArray[i].x = 10000; // apply math.random; ; _____________________________________TODO;
         }
       }
 
@@ -434,7 +445,7 @@ function draw() {
       fill(255, 204, 0);
       textStyle(BOLD);
       textSize(40);
-      let vaxxineScoreAndVaxxineTotal = "" + vaxxineScore.toString() + " / 10";
+      let vaxxineScoreAndVaxxineTotal = "" + vaxxineScore.toString() + " / " + maxLife;
       text(vaxxineScoreAndVaxxineTotal, 640, 100);
       text("Score: " + score.toString(), 200, 100);
       textStyle(NORMAL);
@@ -451,11 +462,10 @@ function gameOver() {
   victoryScreen.style.display = "none";
   characterX = 20;
   characterY = 500 - characterHeight - 20;
-  vaxxineScore = 0;
+  vaxxineScore = maxLife;
   virusArray = [{ x: virusX, y: virusY, i: 0 }];
   gameIsRunning = false;
-  soundBackground.pause();
-  /* maskArray.sound.pause(); */ //Doesnt work!
+  pauseSound();
   scoreElement.innerText = `${score}`;
   noLoop();
 }
