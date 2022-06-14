@@ -9,10 +9,10 @@ let gameIsRunning = false;
 let interval = 0;
 
 //Load Screens: Landing Page; Game Screen; Victory Screen; GameOver screen
-let splashScreen = document.querySelector("#first-screen");
-let playScreen = document.querySelector("#second-screen");
-let gameOverScreen = document.querySelector("#third-screen");
-let victoryScreen = document.querySelector("#fourth-screen");
+let splashScreen = document.querySelector("#splash-screen");
+let playScreen = document.querySelector("#play-screen");
+let gameOverScreen = document.querySelector("#gameover-screen");
+let victoryScreen = document.querySelector("#victory-screen");
 
 //Load buttons
 let startBtn = document.querySelector("#start-btn");
