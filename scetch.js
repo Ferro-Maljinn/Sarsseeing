@@ -19,18 +19,13 @@ let startBtn = document.querySelector("#start-btn");
 let tryAgainBtn = document.querySelector("#tryAgain-btn");
 let restartBtn = document.querySelector("#restart-btn");
 
+// Variables for the score
 let scoreElement = document.querySelector("#score");
 let score = 0;
 let vaxxineScore = 0;
 
-//Load sound effects
-let soundBackground = new Audio("sounds/background.mp3");
-soundBackground.volume = 1;
-let soundVaxxine = new Audio("sounds/vaxxine.mp3");
-soundVaxxine.volume = 1;
-let soundVirus = new Audio("sounds/virus.mp3");
-soundVaxxine.volume = 1;
 
+//Variables for the mask images
 let bg;
 let mask0;
 let mask1;
@@ -61,7 +56,7 @@ let maskX = 2000;
 let maskY = 700;
 let maskWidth = 70;
 let maskHeight = 70;
-
+//Audios
 let soundBerghain;
 let soundKitKat;
 let soundTresor;
@@ -69,9 +64,18 @@ let soundWildeRenate;
 let soundWatergate;
 let soundSisyphos;
 
+//Load sound effects
+let soundBackground = new Audio("sounds/background.mp3");
+soundBackground.volume = 1;
+let soundVaxxine = new Audio("sounds/vaxxine.mp3");
+soundVaxxine.volume = 1;
+let soundVirus = new Audio("sounds/virus.mp3");
+soundVaxxine.volume = 1;
+
 //created an array for each object
 let virusArray = [{ x: virusX, y: virusY, sound: soundVirus, i: 0 }];
 let vaxxineArray = [{ x: vaxX, y: vaxY, sound: soundVaxxine }];
+
 //Defined all constructors
 class virus {
   constructor(x, y, i) {
@@ -133,8 +137,6 @@ function setup() {
   /* tint(0, 153, 204, 126); */ // Apply transparency without changing color ==> Needs to change (apply only on background) ==> (Maybe a debuff for Tresor Mask?)
   canvas.parent("play-screen");
   textAlign(CENTER);
-  /* let virusArray = [{ x: virusX, y: virusY, i: 0 }];
-  let vaxxineArray = [{ x: vaxX, y: vaxY }]; */
 
   soundBerghain = new Audio("sounds/berghain.mp3");
   soundBerghain.volume = 1;
@@ -321,7 +323,7 @@ function draw() {
 
           vaxxineArray.splice(i, 1);
           vaxxineScore = vaxxineScore + 1;
-          if (vaxxineScore == 10) {
+          if (vaxxineScore == 1) {
             gameIsWon = true;
             vaxxineScore = 0;
           }

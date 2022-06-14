@@ -13,7 +13,9 @@ body {
 }
 
 #splash-screen,
+#gameover-screen,
 #victory-screen {
+  margin: 32px;
   width: 75%;
   height: 50%;
   position: relative;
@@ -150,23 +152,33 @@ aside {
   background-repeat: no-repeat;
 }
 
-.h1go {
+#victory-screen {
+    width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.h1-W-G-Screen {
   font-size: 8em;
 }
 
 @media screen and (max-width: 1100px) {
-  .h1go {
+  .h1-W-G-Screen {
     font-size: 4em;
   }
 }
 
-.pGO {
+.p-VS-GOS {
   font-size: 2em;
   text-align: center;
 }
 
 @media screen and (max-width: 1100px) {
-  .pGO {
+  .p-VS-GOS {
     font-size: 1.5em;
   }
 }
