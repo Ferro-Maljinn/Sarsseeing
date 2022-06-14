@@ -22,7 +22,7 @@ let restartBtn = document.querySelector("#restart-btn");
 // Variables for the score
 let scoreElement = document.querySelector("#score");
 let score = 0;
-const maxLife = 7;
+const maxLife = 3;
 let vaxxineScore = maxLife;
 
 //Variables for the mask images
@@ -345,7 +345,7 @@ function draw() {
           100 + characterY > maskArray[i].y + 20 //Bottom
         ) {
           maskArray[i].x = 15000;
-          // Check name of maskArray.name and play, backgroundmusik = stop on masks related to the clubs
+          // Checks name of maskArray.name and play assigned sound, stop background musik
           if (maskArray[i].name == "Berghain") {
             pauseSound();
             maskArray[i].sound.play();
