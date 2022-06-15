@@ -1,5 +1,4 @@
 # Sarsseeing
-![](file:///C:/Users/adsilva/Documents/IronHack%20Work/logo.pdf)
 ***
 [Click here to play](https://ferro-maljinn.github.io/Sarsseeing/)
 
