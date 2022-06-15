@@ -111,12 +111,6 @@ function preload() {
 
   // Load all forms of the characters
   char0 = loadImage("assets/character/char0.png");
-  char1 = loadImage("assets/character/char1.png");
-  char2 = loadImage("assets/character/char2.png");
-  char3 = loadImage("assets/character/char3.png");
-  char4 = loadImage("assets/character/char4.png");
-  char5 = loadImage("assets/character/char5.png");
-  char6 = loadImage("assets/character/char6.png");
 
   // Load all collission objects
   virusBright = loadImage("assets/collision/stateBright.png");
