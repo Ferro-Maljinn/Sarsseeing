@@ -63,20 +63,20 @@ Masks and sounds are referring to the most known techno/ electronic clubs in Ber
 ## Attribution
 
 #### Sound
-Hintergrund Musik	| https://pixabay.com/de/sound-effects/2018-09-06-18223/ 
 
-https://pixabay.com/de/sound-effects/watery-f-39417/ 
-https://pixabay.com/de/sound-effects/warp-sfx-6897/ 
-https://pixabay.com/de/sound-effects/deep-house-pluck-25180/ 
-https://pixabay.com/de/sound-effects/loop4-25296/ 
-https://pixabay.com/de/sound-effects/techno-house-beat-28885/ 
-https://pixabay.com/de/sound-effects/cliche-techno-or-trance-loop-1-35250/ 
-https://pixabay.com/de/sound-effects/club-wubs-loop-32945/ 
-https://pixabay.com/de/sound-effects/trance-lead-140-bpm-33900/	 
+- https://pixabay.com/de/sound-effects/2018-09-06-18223/ 
+- https://pixabay.com/de/sound-effects/watery-f-39417/ 
+- https://pixabay.com/de/sound-effects/warp-sfx-6897/ 
+- https://pixabay.com/de/sound-effects/deep-house-pluck-25180/ 
+- https://pixabay.com/de/sound-effects/loop4-25296/ 
+- https://pixabay.com/de/sound-effects/techno-house-beat-28885/ 
+- https://pixabay.com/de/sound-effects/cliche-techno-or-trance-loop-1-35250/ 
+- https://pixabay.com/de/sound-effects/club-wubs-loop-32945/ 
+- https://pixabay.com/de/sound-effects/trance-lead-140-bpm-33900/	 
 
 #### Background GIF
 
-https://gifer.com/en/7Ik1 
+- https://gifer.com/en/7Ik1 
 
 #### Software and Tools
 
