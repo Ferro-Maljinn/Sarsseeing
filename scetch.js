@@ -1,19 +1,19 @@
 console.log("Am I working? Check, Connect, Neck Attack");
 
-//Defined Game status
+// Defined Game status
 let gameIsOver = false;
 let gameIsWon = false;
 let gameIsRunning = false;
 
-//The intervall manipulates the spawning of an obstacles and the virus animation
+// The intervall manipulates the spawning of an obstacles and the virus animation
 let interval = 0;
 
-//Load Screens: Landing Page; Game Screen; GameOver screen
+// Load Screens: Landing Page; Game Screen; GameOver screen
 let splashScreen = document.querySelector("#splash-screen");
 let playScreen = document.querySelector("#play-screen");
 let gameOverScreen = document.querySelector("#gameover-screen");
 
-//Load buttons
+// Load buttons
 let startBtn = document.querySelector("#start-btn");
 let tryAgainBtn = document.querySelector("#tryAgain-btn");
 
@@ -23,7 +23,9 @@ let score = 0;
 const maxLife = 3;
 let vaxxineScore = maxLife;
 
-//Variables for the mask images
+const randomMax = 10000;
+
+// Variables for the mask images
 let bg;
 let mask0;
 let mask1;
@@ -33,55 +35,47 @@ let mask4;
 let mask5;
 let maskArray;
 
-//Define all variables of game obstacles
-//character
+// Define all variables of game obstacles
+// character
 let characterHeight = 65;
 let characterWidth = 65;
 let characterX = 20;
 let characterY = 500 - characterHeight + 200;
-//Virus
+// Virus
 let virusX = 2000;
 let virusY = 100;
 let virusWidth = 55;
 let virusHeight = 55;
-//Vaxxine
+// Vaxxine
 let vaxX = 2000;
 let vaxY = 500;
 let vaxxineWidth = 80;
 let vaxxineHeight = 70;
-//Mask
+// Mask
 let maskX = 2000;
 let maskY = 0;
 let maskWidth = 70;
 let maskHeight = 70;
 
-//Audios & sound effects
+// Audios & sound effects
 const soundBerghain = new Audio("sounds/berghain.mp3");
-soundBerghain.volume = 1;
 const soundKitKat = new Audio("sounds/kitkat.mp3");
-soundKitKat.volume = 1;
 const soundTresor = new Audio("sounds/tresor.mp3");
-soundTresor.volume = 1;
 const soundSisyphos = new Audio("sounds/sisyphos.mp3");
-soundSisyphos.volume = 1;
 const soundWildeRenate = new Audio("sounds/wilderenate.mp3");
-soundWildeRenate.volume = 1;
 const soundWatergate = new Audio("sounds/watergate.mp3");
-soundWatergate.volume = 1;
 const soundBackground = new Audio("sounds/background.mp3");
-soundBackground.volume = 1;
 const soundVaxxine = new Audio("sounds/vaxxine.mp3");
-soundVaxxine.volume = 1;
 const soundVirus = new Audio("sounds/virus.mp3");
-soundVaxxine.volume = 1;
 
-//created an array for each object
+// created an array for each object
 let virusArray = [{ x: virusX, y: virusY, sound: soundVirus, i: 0 }];
 let vaxxineArray = [{ x: vaxX, y: vaxY, sound: soundVaxxine }];
 
-const randomMax = 10000;
+// collects timeouts
+let timeouts = [];
 
-//Defined all constructors
+// Defined all constructors
 class virus {
   constructor(x, y, i) {
     this.x = x;
@@ -110,7 +104,7 @@ class mask {
   }
 }
 
-//Load all images
+// Load all images
 function preload() {
   // Load background Gif
   bg = loadImage("assets/ezgif.com-gif-maker.gif");
@@ -134,20 +128,44 @@ function preload() {
   mask3 = loadImage("assets/collision/all-masks/mask3.png");
   mask4 = loadImage("assets/collision/all-masks/mask4.png");
   mask5 = loadImage("assets/collision/all-masks/mask5.png");
+
 }
 
-// generates a random number
+// Stops all the sounds and calls clear all timeouts
+function pauseSounds() {
+  clearTimeouts()
+  soundBackground.pause();
+  soundBerghain.pause();
+  soundKitKat.pause();
+  soundTresor.pause();
+  soundSisyphos.pause();
+  soundWatergate.pause();
+  soundWildeRenate.pause();
+}
+
+// Generates a random number
 function getRandomNum(max) {
   return Math.floor(Math.random() * max);
 }
 
-function setup() {
-  const canvas = createCanvas(windowWidth, windowHeight - 20);
 
+// clears all the timeouts
+function clearTimeouts() {
+  for (var i = 0; i < timeouts.length; i++) {
+    clearTimeout(timeouts[i]);
+  }
+  //quick reset of the timer array that has been cleared
+  timeouts = [];
+}
+
+function setup() {
+  // Creates canvas
+  const canvas = createCanvas(windowWidth, windowHeight - 20);
   const wHeight = canvas.height - 20;
 
   image(bg, 50, 0);
-  /* tint(0, 153, 204, 126); */ // Apply transparency without changing color ==> Needs to change (apply only on background) ==> (Maybe a debuff for Tresor Mask?)
+  // tint(0, 153, 204, 126); */ // Apply transparency without changing color
+  //  ==> Needs to change (apply only on background) ==> (Maybe a debuff for Tresor Mask?)
   canvas.parent("play-screen");
   textAlign(CENTER);
 
@@ -197,42 +215,30 @@ function setup() {
   ];
 }
 
-function pauseSound() {
-  soundBackground.pause();
-  soundBerghain.pause();
-  soundKitKat.pause();
-  soundTresor.pause();
-  soundSisyphos.pause();
-  soundWatergate.pause();
-  soundWildeRenate.pause();
-}
-
 function draw() {
-  //variable 'gameIsRunning' starts as false ( file: scetch.js - line: 6)
+  // variable 'gameIsRunning' starts as false ( file: scetch.js - line: 6)
   if (gameIsRunning) {
     background(bg, 255);
     interval += 1;
+    /* console.log("Interval is counting", interval); */
     //'frq' delay (in the number of drawings) between virus animation
     frq = 20;
 
-    //Display the character, defined movement
+    // Display the character, defined movement
     image(char0, characterX, characterY, characterWidth, characterHeight);
 
-    //spawns all objects: virus; vaxxines; masks
-    //random virus spawning
-    if (interval % 12 == 0) {
+    // spawns all objects: virus; vaxxines; masks
+    // random virus spawning
+    if (interval % 9 == 0) {
       virusArray.push(new virus(width, random(50, windowHeight), interval));
     }
-    //random vaxxine spawning
+    // random vaxxine spawning
     if (interval % 1000 == 0) {
       vaxxineArray.push(new vaxxine(width, random(10, windowHeight)));
     }
-    //random mask spawning
-    // if (interval % 600 == 0) {
-    //   maskArray.push(new mask(100, random(10, windowHeight)));
-    // }
 
-    //iterating the Array objects, display them & creating animation of the virus, with frequency(frq)
+    // iterating the Array objects, display them &
+    // creating animation of the virus, with frequency(frq)
     for (let i = 0; i < virusArray.length; i++) {
       if (int(int((interval + virusArray[i].i) / frq)) % 2 == 0) {
         image(
@@ -262,16 +268,17 @@ function draw() {
       );
     }
 
-    //Loop over each array of objects
+    // Loop over each array of objects
     // All collisions
-    //Manhatten distance is smaller than 50,=> splice (cut out) object,=> increment Scores by one, => reset score
+    // Manhatten distance is smaller than 50,=> splice (cut out) object,
+    // => increment Scores by one, => reset score
     for (let i = 0; i < virusArray.length; i++) {
       virusArray[i].x -= 4; //speed
       // Score increases
       if (virusX + virusWidth <= characterX) {
         score += 1;
       }
-      //collision with virus
+      // collision with virus
       if (
         characterX < virusArray[i].x + virusWidth - 20 && //left
         characterX + characterWidth > virusArray[i].x + 20 && //Right
@@ -289,7 +296,8 @@ function draw() {
       if (virusArray[i].x < 0) {
         virusArray.splice(i, 1);
         score += 1;
-        //print players score if game is over NOTE: write a conditional if player scored 0!!!! Reset the score on gameOver Screen without having to reload browser!!!
+        //print players score if game is over NOTE: write a conditional if player scored 0!!
+        // Reset the score on gameOver Screen without having to reload browser!!!
         scoreElement.innerText = score;
         if (gameIsOver == true) {
           score = 0;
@@ -300,12 +308,12 @@ function draw() {
     for (let i = 0; i < vaxxineArray.length; i++) {
       vaxxineArray[i].x -= 6;
 
-      //collision with vaxxine
+      // collision with vaxxine
       if (
-        characterX < vaxxineArray[i].x + vaxxineWidth - 20 && //left
-        characterX + characterWidth > vaxxineArray[i].x + 20 && //Right
-        characterY < vaxxineArray[i].y - 20 + vaxxineWidth && //Top
-        characterHeight + characterY > vaxxineArray[i].y + 20 //Bottom
+        characterX < vaxxineArray[i].x + vaxxineWidth - 20 && // Left
+        characterX + characterWidth > vaxxineArray[i].x + 20 && // Right
+        characterY < vaxxineArray[i].y - 20 + vaxxineWidth && // Top
+        characterHeight + characterY > vaxxineArray[i].y + 20 // Bottom
       ) {
         soundVaxxine.play();
         vaxxineArray.splice(i, 1);
@@ -320,65 +328,84 @@ function draw() {
       image(maskArray[i].img, maskArray[i].x, maskArray[i].y, 64, 60);
       maskArray[i].x -= 5;
 
-      // ------------------------------------------------------------------------WHATS THIS?
       if (
-        characterX < maskArray[i].x + 100 - 20 && //left
-        characterX + characterWidth > maskArray[i].x + 20 && //Right
-        characterY < maskArray[i].y - 20 + 100 && //Top
-        100 + characterY > maskArray[i].y + 20 //Bottom
+        characterX < maskArray[i].x + 100 - 20 && // Left
+        characterX + characterWidth > maskArray[i].x + 20 && // Right
+        characterY < maskArray[i].y - 20 + 100 && // Top
+        100 + characterY > maskArray[i].y + 20 // Bottom
       ) {
         maskArray[i].x = 15000;
-        // Checks name of maskArray.name and plays the assigned sound, then => backgroundmusik stops until the given timeout
+        // Checks name of maskArray.name and plays the assigned sound,
+        // then => backgroundmusik stops until the given timeout
+        //push all setTimeout() inside the timeout Array
         if (maskArray[i].name == "Berghain") {
-          pauseSound();
+          pauseSounds();
           maskArray[i].sound.play();
           // seconds = 30 sec
-          setTimeout(() => {
-            soundBackground.play();
-          }, 78000);
+          timeouts.push(
+            setTimeout(() => {
+              soundBackground.play();
+            }, 30000)
+          );
         }
+
         if (maskArray[i].name == "Kitkat") {
-          pauseSound();
+          pauseSounds();
           maskArray[i].sound.play();
           // seconds = 15 sec
-          setTimeout(() => {
-            soundBackground.play();
-          }, 15000);
+          timeouts.push(
+            setTimeout(() => {
+              soundBackground.play();
+            }, 15000)
+          );
         }
+        
         if (maskArray[i].name == "Tresor") {
-          pauseSound();
+          pauseSounds();
           maskArray[i].sound.play();
           // seconds = 13 sec
-          setTimeout(() => {
-            soundBackground.play();
-          }, 13000);
+          timeouts.push(
+            setTimeout(() => {
+              soundBackground.play();
+            }, 13000)
+          );
         }
+
         if (maskArray[i].name == "Sisyphos") {
-          pauseSound();
+          pauseSounds();
           maskArray[i].sound.play();
           // seconds = 17 sec
-          setTimeout(() => {
-            soundBackground.play();
-          }, 17000);
+          timeouts.push(
+            setTimeout(() => {
+              soundBackground.play();
+            }, 17000)
+          );
         }
+
         if (maskArray[i].name == "WildeRenate") {
-          pauseSound();
+          pauseSounds();
           maskArray[i].sound.play();
           // seconds = 27 sec
-          setTimeout(() => {
-            soundBackground.play();
-          }, 27000);
+          timeouts.push(
+            setTimeout(() => {
+              soundBackground.play();
+            }, 27000)
+          );
         }
+
         if (maskArray[i].name == "Watergate") {
-          pauseSound();
+          pauseSounds();
           maskArray[i].sound.play();
-          setTimeout(() => {
-            // seconds = 15 sec
-            soundBackground.play();
-          }, 15000);
+          // seconds = 15 sec
+          timeouts.push(
+            setTimeout(() => {
+              soundBackground.play();
+            }, 15000)
+          );
         }
+
       }
-      //Eliminate mask if player collides with it and print itback again
+      // Eliminate mask if player collides with it and print itback again
       if (maskArray[i].x < -200) {
         maskArray[i].x = maskX + getRandomNum(randomMax);
       }
@@ -408,10 +435,12 @@ function draw() {
     if (gameIsOver) {
       gameOver();
     }
+
     // status bar
-    let colorScore = color("rgba(101, 153, 255, 0.58)");
+
+    /* let colorScore = color("rgba(101, 153, 255, 0.58)");
     fill(colorScore);
-    rect(0, 0, windowWidth, 140);
+    rect(0, 0, windowWidth, 140); */
 
     virusBright.resize(50, 50);
     image(virusBright, 40, 60);
@@ -430,7 +459,7 @@ function draw() {
   }
 }
 
-//Stop draw function to reset objects + display game-over screen
+// Stop draw function to reset objects + display game-over screen
 
 function gameOver() {
   splashScreen.style.display = "none";
@@ -442,27 +471,27 @@ function gameOver() {
   virusArray = [{ x: virusX, y: virusY, i: 0 }];
   gameIsRunning = false;
   scoreElement.innerText = `${score}`;
-  pauseSound();
+  pauseSounds();
   noLoop();
 }
 
-//Showing the first screen
+// Showing the first screen
 window.addEventListener("load", () => {
   playScreen.style.display = "none";
   gameOverScreen.style.display = "none";
   noLoop();
 
-  //listener on start button; link to game-canvas
+  // listener on start button; link to game-canvas
   startBtn.addEventListener("click", () => {
     splashScreen.style.display = "none";
     playScreen.style.display = "flex";
     gameOverScreen.style.display = "none";
-    soundBackground.play();
     gameIsRunning = true;
+    soundBackground.play();
     loop();
   });
 
-  //listener on tryAgain button; link to game-canvas
+  // listener on tryAgain button; link to game-canvas
   tryAgainBtn.addEventListener("click", () => {
     splashScreen.style.display = "none";
     playScreen.style.display = "flex";
@@ -471,11 +500,12 @@ window.addEventListener("load", () => {
     gameIsOver = false;
     gameIsRunning = true;
     gameIsWon = false;
+    pauseSounds();
     soundBackground.play();
     loop();
   });
 
-  //reset the stats
+  // reset the stats
   virusArray = [
     { x: virusX, y: virusY },
     { x: virusX + 800, y: virusY + 200 },
@@ -484,7 +514,7 @@ window.addEventListener("load", () => {
   loop();
 });
 
-//to simulate that the game is over
+// to simulate that the game is over
 tryAgainBtn.addEventListener("click", () => {
   gameIsOver = false;
 });

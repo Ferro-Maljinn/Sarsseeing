@@ -3,8 +3,6 @@
 }
 
 body {
-  margin: 0;
-  padding: 10px;
   background-color: black;
   display: flex;
   justify-content: center;
@@ -14,16 +12,29 @@ body {
 
 #splash-screen,
 #gameover-screen {
-  margin: 32px;
-  width: 75%;
+  margin: 32px 64px;
+  width: 100%;
   height: 50%;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  background-size: cover;
+    background-image: url(assets/bg-buildings.png);
   background-repeat: no-repeat;
+  background-position: bottom;
+}
+#gameover-screen {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-repeat: no-repeat;
+    background-image: url(assets/bg-buildings.png);
+  background-repeat: no-repeat;
+  background-position: bottom center;
 }
 
 @media screen and (max-width: 1100px) {
@@ -36,19 +47,6 @@ body {
     align-content: stretch;
   }
 }
-
-/* #start-img {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  z-index: -1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-size: cover;
-  background-repeat: no-repeat;
-} */
 
 h1 {
   width: fit-content;
@@ -68,24 +66,26 @@ h1 {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  padding: 32px;
+  padding-bottom: 32px;
 
   position: relative;
 }
-
+h2 {
+  color: #efff8e;
+  font-size: 1.5em;
+  font-family: "Special Elite";
+  font-weight:100;
+}
 @media screen and (max-width: 1100px) {
   h1 {
     padding: 16px;
     font-size: 0.75em;
   }
 }
-h2 {
-  font-size: inherit;
-  color: #efff8e;
-  font-size: 1.8em;
-}
-.column-items {
-  padding: 32px;
+
+.column-items, .row-items {
+  margin: 32px;
+  padding: 60px;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -107,15 +107,15 @@ aside {
   /* state = default */
   padding: 32px;
 
-  width: fit-content;
+  width: 12vw;
   height: 60px;
   left: 16px;
   top: 16px;
 
   font-family: "Saira Stencil One";
   font-style: normal;
-  font-weight: normal;
-  font-size: 24px;
+  font-weight: bold;
+  font-size: 1em;
   line-height: 50px;
   /*   color: #739c00; */
 
@@ -139,16 +139,6 @@ aside {
   /*  Mouse leave - Change to: "default"; */
 }
 
-#gameover-screen {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
 
 .h1-W-G-Screen {
   font-size: 8em;
@@ -172,9 +162,15 @@ aside {
 }
 
 p {
-  padding: 32px;
-  color: white;
-  font-size: 0.85em;
+  width: 100%;
+  height: fit-content;
+  color: rgb(225, 206, 255);
+  font-size: 0.5em;
+  font-family: "Special Elite";
+  font-weight: 600;
+  line-height: 1.5em;
+  letter-spacing: 0.07em;
+  padding-bottom: 80px;
 }
 
 @media screen and (max-width: 1100px) {
