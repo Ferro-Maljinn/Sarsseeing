@@ -13,8 +13,7 @@ body {
 }
 
 #splash-screen,
-#gameover-screen,
-#victory-screen {
+#gameover-screen {
   margin: 32px;
   width: 75%;
   height: 50%;
@@ -28,8 +27,7 @@ body {
 }
 
 @media screen and (max-width: 1100px) {
-  #splash-screen,
-  #victory-screen {
+  #splash-screen {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -152,16 +150,6 @@ aside {
   background-repeat: no-repeat;
 }
 
-#victory-screen {
-    width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
 .h1-W-G-Screen {
   font-size: 8em;
 }
